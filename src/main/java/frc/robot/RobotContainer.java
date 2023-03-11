@@ -64,16 +64,17 @@ public class RobotContainer {
         }
 
         private void configureButtonBindings() {
-                // new JoystickButton(secondaryJoystick, 1).whenPressed(new ArmSliderBottomCmd(armSubsystem));
-                // new JoystickButton(secondaryJoystick, 2).whenPressed(new ArmSliderHumanPlayerCmd(armSubsystem));
-                // new JoystickButton(secondaryJoystick, 4).whenPressed(new ArmSliderTopCmd(armSubsystem));
+                new JoystickButton(secondaryJoystick, 1).onTrue(new ArmSliderBottomCmd(armSubsystem));
+                new JoystickButton(secondaryJoystick, 2).onTrue(new ArmSliderHumanPlayerCmd(armSubsystem));
+                new JoystickButton(secondaryJoystick, 4).onTrue(new ArmSliderTopCmd(armSubsystem));
 
                 new JoystickButton(secondaryJoystick, 5).onTrue(
                                 new ArmIntakeInCmd(armSubsystem, () -> secondaryJoystick.getRawButton(5)));
                 new JoystickButton(secondaryJoystick, 6).onTrue(
                                 new ArmIntakeOutCmd(armSubsystem, () -> secondaryJoystick.getRawButton(6)));
 
-                new JoystickButton(secondaryJoystick, 3).toggleOnTrue(new ArmWristReverseCmd(armSubsystem, () -> secondaryJoystick.getRawButton(3)));
+                new JoystickButton(secondaryJoystick, 3).onTrue(new ArmWristReverseCmd(armSubsystem, () -> secondaryJoystick.getRawButton(3)));
+                new JoystickButton(secondaryJoystick, 7).onTrue(new ArmWristReverseCmd(armSubsystem, () -> secondaryJoystick.getRawButton(7)));
         }
 
         public Command getAutonomousCommand() {

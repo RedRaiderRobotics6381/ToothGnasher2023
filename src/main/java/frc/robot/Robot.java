@@ -136,13 +136,11 @@ public class Robot extends TimedRobot {
         //     }
         // }
 
-        new ArmWristCmd(RobotContainer.armSubsystem);
-
-        // if(RobotContainer.secondaryJoystick.getRawAxis(5) < -0.05 && RobotContainer.secondaryJoystick.getRawAxis(5) > 0.05){
-            // ArmSubsystem.armRotateMotor.set(0.03);
-        // } else{
+        if(RobotContainer.secondaryJoystick.getRawAxis(5) * 0.20 < 0.03){
+            ArmSubsystem.armRotateMotor.set(0.03);
+        } else{
             ArmSubsystem.armRotateMotor.set(RobotContainer.secondaryJoystick.getRawAxis(5) * 0.20);
-        // }
+        }
     }
 
     @Override

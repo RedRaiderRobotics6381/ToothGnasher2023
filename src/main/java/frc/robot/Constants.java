@@ -159,7 +159,7 @@ public final class Constants {
 
         public static final double gArmOffset = 1;
         public static final double gRotateoffset = 0.25;
-        public static final double gSliderSpeed = -0.4;
+        public static final double gSliderSpeed = -0.8;
         public static final double gRotateSpeed = 0.3;
     }
 }

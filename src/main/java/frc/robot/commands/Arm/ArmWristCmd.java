@@ -7,10 +7,10 @@ import java.util.function.Supplier;
 public class ArmWristCmd extends CommandBase {
 
     private final ArmSubsystem armSubsystem;
-    public Supplier<Double> movement;
+    public Supplier<Boolean> button;
 
-    public ArmWristCmd(ArmSubsystem armSubsystem) {
-        this.movement = movement;
+    public ArmWristCmd(ArmSubsystem armSubsystem, Supplier<Boolean> button) {
+        this.button = button;
         this.armSubsystem = armSubsystem;
         addRequirements(armSubsystem);
     }
@@ -21,7 +21,8 @@ public class ArmWristCmd extends CommandBase {
 
     @Override
     public void execute() {
-        armSubsystem.wristRotateMotor.set(0.5);
+        armSubsystem.wristRotateMotor.set(-0.5);
+        System.out.println(armSubsystem.wristRotateEncoder.getPosition());
     }
 
     @Override
@@ -32,7 +33,8 @@ public class ArmWristCmd extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(armSubsystem.wristRotateEncoder.getPosition() < 10){
+        // if(button.get()){
+        if(armSubsystem.wristRotateEncoder.getPosition() < Math.abs(60)){
             return false;
         } else{
             return true;

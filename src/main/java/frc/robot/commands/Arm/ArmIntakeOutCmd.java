@@ -30,7 +30,7 @@ public class ArmIntakeOutCmd extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        armSubsystem.intakeMotor.set(0);
+        armSubsystem.intakeMotor.set(0.05);
         RobotContainer.secondaryJoystick.setRumble(RumbleType.kRightRumble, 0);
     }
 

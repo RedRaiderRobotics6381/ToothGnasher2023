@@ -1,25 +1,13 @@
 package frc.robot.commands.Auto;
-
-import java.util.function.Supplier;
-
-import java.util.Timer;
-
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.ArmSubsystem;
 
 public class AutoWaitCmd extends CommandBase {
 
-    private final ArmSubsystem armSubsystem;
     int goal;
     Boolean finished;
 
-    public AutoWaitCmd(ArmSubsystem armSubsystem, int goal) {
-        this.armSubsystem = armSubsystem;
+    public AutoWaitCmd(int goal) {
         this.goal = goal;
-        addRequirements(armSubsystem);
     }
 
     @Override
