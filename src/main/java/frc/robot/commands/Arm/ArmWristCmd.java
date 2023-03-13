@@ -7,10 +7,9 @@ import java.util.function.Supplier;
 public class ArmWristCmd extends CommandBase {
 
     private final ArmSubsystem armSubsystem;
-    public Supplier<Boolean> button;
+    boolean clockwise = true;
 
-    public ArmWristCmd(ArmSubsystem armSubsystem, Supplier<Boolean> button) {
-        this.button = button;
+    public ArmWristCmd(ArmSubsystem armSubsystem) {
         this.armSubsystem = armSubsystem;
         addRequirements(armSubsystem);
     }
@@ -21,23 +20,38 @@ public class ArmWristCmd extends CommandBase {
 
     @Override
     public void execute() {
-        armSubsystem.wristRotateMotor.set(-0.5);
-        System.out.println(armSubsystem.wristRotateEncoder.getPosition());
+        if(clockwise == true){
+            armSubsystem.wristRotateMotor.set(0.5);
+        } else{
+            armSubsystem.wristRotateMotor.set(-0.5);
+        }
     }
 
     @Override
     public void end(boolean interrupted) {
         armSubsystem.wristRotateMotor.set(0);
-        armSubsystem.wristRotateEncoder.setPosition(0);
+        if(clockwise == true){
+            clockwise = false;
+        } else {
+            clockwise = true;
+        }
     }
 
     @Override
     public boolean isFinished() {
-        // if(button.get()){
-        if(armSubsystem.wristRotateEncoder.getPosition() < Math.abs(60)){
-            return false;
-        } else{
-            return true;
+        System.out.println(ArmSubsystem.wristRotateEncoder.getPosition());
+        if(clockwise == true){
+            if(Math.abs(ArmSubsystem.wristRotateEncoder.getPosition()) < 60){
+                return false;
+            } else{
+                return true;
+            }
+        } else {
+            if(ArmSubsystem.wristRotateEncoder.getPosition() <= 0){
+                return true;
+            } else{
+                return false;
+            }
         }
     }
 }

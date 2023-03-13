@@ -43,10 +43,10 @@ public class SwerveJoystickCmd extends CommandBase {
 
         // 0.5 Spencer buttons
         if(lbumper.get() && rbumper.get()){
-            driveChange = 30;
-            turningChange = 1;
+            driveChange = 20;
+            turningChange = 4;
         } else if(lbumper.get() || rbumper.get()){
-            driveChange = 25;
+            driveChange = 2;
             turningChange = 1;
         } else{
             driveChange = 1;

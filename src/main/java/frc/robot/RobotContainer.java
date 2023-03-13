@@ -33,9 +33,8 @@ import frc.robot.commands.Arm.ArmSliderBottomCmd;
 import frc.robot.commands.Arm.ArmSliderHumanPlayerCmd;
 import frc.robot.commands.Arm.ArmSliderTopCmd;
 import frc.robot.commands.Arm.ArmWristCmd;
-import frc.robot.commands.Arm.ArmWristReverseCmd;
 import frc.robot.commands.Auto.AutoManipulatorCmd;
-import frc.robot.commands.Auto.AutoOpenGrabberCmd;
+import frc.robot.commands.Auto.AutoIntakeOutCmd;
 import frc.robot.commands.Auto.AutoWaitCmd;
 import frc.robot.commands.Drive.SwerveJoystickCmd;
 import frc.robot.subsystems.ArmSubsystem;
@@ -73,8 +72,7 @@ public class RobotContainer {
                 new JoystickButton(secondaryJoystick, 6).onTrue(
                                 new ArmIntakeOutCmd(armSubsystem, () -> secondaryJoystick.getRawButton(6)));
 
-                new JoystickButton(secondaryJoystick, 3).onTrue(new ArmWristReverseCmd(armSubsystem, () -> secondaryJoystick.getRawButton(3)));
-                new JoystickButton(secondaryJoystick, 7).onTrue(new ArmWristReverseCmd(armSubsystem, () -> secondaryJoystick.getRawButton(7)));
+                new JoystickButton(secondaryJoystick, 3).onTrue(new ArmWristCmd(armSubsystem));
         }
 
         public Command getAutonomousCommand() {

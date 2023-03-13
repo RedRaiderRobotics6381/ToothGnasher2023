@@ -104,6 +104,7 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
+        ArmSubsystem.wristRotateEncoder.setPosition(0);
 
     }
 
@@ -136,10 +137,22 @@ public class Robot extends TimedRobot {
         //     }
         // }
 
-        if(RobotContainer.secondaryJoystick.getRawAxis(5) * 0.20 < 0.03){
-            ArmSubsystem.armRotateMotor.set(0.03);
-        } else{
+        // if(RobotContainer.secondaryJoystick.getRawAxis(5) * 0.20 < 0.03){
+            // ArmSubsystem.armRotateMotor.set(0.03);
+        // } else{
             ArmSubsystem.armRotateMotor.set(RobotContainer.secondaryJoystick.getRawAxis(5) * 0.20);
+        // }
+
+        // System.out.println(ArmSubsystem.sliderEncoder.getPosition() + " Manual");
+
+        System.out.println(ArmSubsystem.wristRotateEncoder.getPosition());
+
+        if(ArmSubsystem.sliderEncoder.getPosition() < -42){
+            ArmSubsystem.leftArmSlider.set(0);
+            ArmSubsystem.rightArmSlider.set(0);
+        } else{
+            ArmSubsystem.leftArmSlider.set(RobotContainer.secondaryJoystick.getRawAxis(1) * 0.20);
+            ArmSubsystem.rightArmSlider.set(RobotContainer.secondaryJoystick.getRawAxis(1) * -0.20);
         }
     }
 

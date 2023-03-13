@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
-    public CANSparkMax leftArmSlider;
-    public CANSparkMax rightArmSlider;
+    public static CANSparkMax leftArmSlider;
+    public static CANSparkMax rightArmSlider;
 
     public CANSparkMax suck;
 
-    public RelativeEncoder sliderEncoder;
+    public static RelativeEncoder sliderEncoder;
     public RelativeEncoder grabberEncoder;
 
     public CANSparkMax grabberMotor;
@@ -26,8 +26,8 @@ public class ArmSubsystem extends SubsystemBase {
     public CANSparkMax intakeMotor;
 
     // public static SparkMaxAbsoluteEncoder armRotateEncoder;
-    public static RelativeEncoder armRotateEncoder;
-    public RelativeEncoder wristRotateEncoder;
+    public RelativeEncoder armRotateEncoder;
+    public static RelativeEncoder wristRotateEncoder;
 
 
     public ArmSubsystem() {
@@ -48,15 +48,7 @@ public class ArmSubsystem extends SubsystemBase {
         wristRotateEncoder = wristRotateMotor.getEncoder();
 
         armRotateEncoder.setPositionConversionFactor(0);
-        sliderEncoder.setPositionConversionFactor(1.31741221882);
+        sliderEncoder.setPositionConversionFactor(0.5855165417); // 1.31741221882
         // grabberEncoder.setPositionConversionFactor(2.666);
-    }
-
-    public void suckOn(){
-        suck.set(1);
-    }
-
-    public void suckOff(){
-        suck.set(0);
     }
 }

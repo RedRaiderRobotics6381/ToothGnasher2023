@@ -21,15 +21,15 @@ public class AutoManipulatorCmd extends CommandBase {
 
     @Override
     public void initialize() {
-        start = ArmSubsystem.armRotateEncoder.getPosition();
+        start = armSubsystem.armRotateEncoder.getPosition();
     }
 
     @Override
     public void execute() {
-        if(ArmSubsystem.armRotateEncoder.getPosition() < change){
+        if(armSubsystem.armRotateEncoder.getPosition() < change){
             ArmSubsystem.armRotateMotor.set(Constants.ArmConstants.gRotateSpeed);
         }
-        if(ArmSubsystem.armRotateEncoder.getPosition() > change){
+        if(armSubsystem.armRotateEncoder.getPosition() > change){
             ArmSubsystem.armRotateMotor.set(-Constants.ArmConstants.gRotateSpeed); // Might change negative
         }
     }
@@ -41,9 +41,9 @@ public class AutoManipulatorCmd extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        System.out.println(ArmSubsystem.armRotateEncoder.getPosition());
+        System.out.println(armSubsystem.armRotateEncoder.getPosition());
 
-        if(ArmSubsystem.armRotateEncoder.getPosition() < change + Constants.ArmConstants.gRotateoffset && ArmSubsystem.armRotateEncoder.getPosition() > change - Constants.ArmConstants.gRotateoffset){
+        if(armSubsystem.armRotateEncoder.getPosition() < change + Constants.ArmConstants.gRotateoffset && armSubsystem.armRotateEncoder.getPosition() > change - Constants.ArmConstants.gRotateoffset){
             return true;
         } else{
             return false;

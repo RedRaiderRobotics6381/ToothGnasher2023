@@ -1,5 +1,6 @@
 package frc.robot.commands.Auto;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class AutoIntakeInCmd extends CommandBase {
@@ -18,7 +19,7 @@ public class AutoIntakeInCmd extends CommandBase {
 
     @Override
     public void execute() {
-        armSubsystem.intakeMotor.set(-0.5);
+        armSubsystem.intakeMotor.set(-Constants.ArmConstants.gIntakeSpeed);
     }
 
     @Override

@@ -27,13 +27,13 @@ public class ArmSliderTopCmd extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        // swerveSubsystem.stopModules();
+        armSubsystem.leftArmSlider.set(0);
+        armSubsystem.rightArmSlider.set(0);
     }
 
     @Override
     public boolean isFinished() {
-        // System.out.println(armSubsystem.sliderEncoder.getPosition() <= -Constants.ArmConstants.gArmSliderTop + Constants.ArmConstants.gArmOffset);
-        // System.out.println(armSubsystem.sliderEncoder.getPosition());
+        System.out.println(armSubsystem.sliderEncoder.getPosition() + " Top");
         if(armSubsystem.sliderEncoder.getPosition() <= -Constants.ArmConstants.gArmSliderTop){
             return true;
         } else{

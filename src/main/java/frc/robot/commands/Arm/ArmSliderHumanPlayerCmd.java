@@ -21,7 +21,6 @@ public class ArmSliderHumanPlayerCmd extends CommandBase {
     public void execute() {
         // up
         if(armSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderHumanPlayer + Constants.ArmConstants.gArmOffset){
-            // System.out.println(armSubsystem.sliderEncoder.getPosition() + " Human Player");
             armSubsystem.leftArmSlider.set(Constants.ArmConstants.gSliderSpeed);
             armSubsystem.rightArmSlider.set(-Constants.ArmConstants.gSliderSpeed);
         }
@@ -40,6 +39,7 @@ public class ArmSliderHumanPlayerCmd extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        System.out.println(armSubsystem.sliderEncoder.getPosition() + " Human Player");
         if(armSubsystem.sliderEncoder.getPosition() < -Constants.ArmConstants.gArmSliderHumanPlayer + Constants.ArmConstants.gArmOffset && armSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderHumanPlayer - Constants.ArmConstants.gArmOffset){
             return true;
         } else{
