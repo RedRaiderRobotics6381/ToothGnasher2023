@@ -39,7 +39,7 @@ public class ArmWristCmd extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        System.out.println(ArmSubsystem.wristRotateEncoder.getPosition());
+        // System.out.println(ArmSubsystem.wristRotateEncoder.getPosition());
         if(clockwise == true){
             if(Math.abs(ArmSubsystem.wristRotateEncoder.getPosition()) < 60){
                 return false;

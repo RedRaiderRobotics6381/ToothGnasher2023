@@ -11,10 +11,14 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotContainer;
+import frc.robot.commands.Arm.ArmSliderBottomCmd;
 import frc.robot.commands.Arm.ArmSliderHumanPlayerCmd;
+import frc.robot.commands.Arm.ArmSliderTopCmd;
 import frc.robot.commands.Arm.ArmWristCmd;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.SwerveSubsystem;
 
 
 /**
@@ -93,6 +97,10 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during autonomous. */
     @Override
     public void autonomousPeriodic() {
+        if(ArmSubsystem.sliderEncoder.getPosition() < -42){
+            ArmSubsystem.leftArmSlider.set(0);
+            ArmSubsystem.rightArmSlider.set(0);
+        }
     }
 
     @Override
@@ -105,12 +113,14 @@ public class Robot extends TimedRobot {
             m_autonomousCommand.cancel();
         }
         ArmSubsystem.wristRotateEncoder.setPosition(0);
+        ArmSubsystem.sliderEncoder.setPosition(0);
 
     }
 
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
+
         //temporary!!!!!!
         double rotateoffset = 0.0005;
         double rotateSpeed = 0.3;
@@ -145,14 +155,26 @@ public class Robot extends TimedRobot {
 
         // System.out.println(ArmSubsystem.sliderEncoder.getPosition() + " Manual");
 
-        System.out.println(ArmSubsystem.wristRotateEncoder.getPosition());
+        // System.out.println(ArmSubsystem.wristRotateEncoder.getPosition());
 
-        if(ArmSubsystem.sliderEncoder.getPosition() < -42){
+        // System.out.println(ArmSubsystem.armRotateEncoder.getPosition());
+        System.out.println(RobotContainer.swerveSubsystem.getPitch() + " Pitch");
+
+        if(ArmSubsystem.sliderEncoder.getPosition() < -42 && RobotContainer.secondaryJoystick.getRawAxis(1) > 0.25){
+            ArmSubsystem.leftArmSlider.set(RobotContainer.secondaryJoystick.getRawAxis(1) * -Constants.ArmConstants.gSliderSpeed);
+            ArmSubsystem.rightArmSlider.set(RobotContainer.secondaryJoystick.getRawAxis(1) * Constants.ArmConstants.gSliderSpeed);
+        }
+        else if(ArmSubsystem.sliderEncoder.getPosition() > -0.5 && RobotContainer.secondaryJoystick.getRawAxis(1) < -0.25){
+            ArmSubsystem.leftArmSlider.set(RobotContainer.secondaryJoystick.getRawAxis(1) * -Constants.ArmConstants.gSliderSpeed);
+            ArmSubsystem.rightArmSlider.set(RobotContainer.secondaryJoystick.getRawAxis(1) * Constants.ArmConstants.gSliderSpeed);
+        }
+        else if(ArmSubsystem.sliderEncoder.getPosition() < -42 || ArmSubsystem.sliderEncoder.getPosition() > -0.5){
             ArmSubsystem.leftArmSlider.set(0);
             ArmSubsystem.rightArmSlider.set(0);
-        } else{
-            ArmSubsystem.leftArmSlider.set(RobotContainer.secondaryJoystick.getRawAxis(1) * 0.20);
-            ArmSubsystem.rightArmSlider.set(RobotContainer.secondaryJoystick.getRawAxis(1) * -0.20);
+        }
+        else{
+            ArmSubsystem.leftArmSlider.set(RobotContainer.secondaryJoystick.getRawAxis(1) * -Constants.ArmConstants.gSliderSpeed);
+            ArmSubsystem.rightArmSlider.set(RobotContainer.secondaryJoystick.getRawAxis(1) * Constants.ArmConstants.gSliderSpeed);
         }
     }
 

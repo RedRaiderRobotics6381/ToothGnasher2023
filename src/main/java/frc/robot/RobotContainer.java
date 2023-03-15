@@ -19,6 +19,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -34,6 +35,8 @@ import frc.robot.commands.Arm.ArmSliderHumanPlayerCmd;
 import frc.robot.commands.Arm.ArmSliderTopCmd;
 import frc.robot.commands.Arm.ArmWristCmd;
 import frc.robot.commands.Auto.AutoManipulatorCmd;
+import frc.robot.commands.Auto.AutoChargingBalanceCmd;
+import frc.robot.commands.Auto.AutoIntakeInCmd;
 import frc.robot.commands.Auto.AutoIntakeOutCmd;
 import frc.robot.commands.Auto.AutoWaitCmd;
 import frc.robot.commands.Drive.SwerveJoystickCmd;
@@ -42,7 +45,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 
 public class RobotContainer {
 
-        private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+        public final static SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
         public final static ArmSubsystem armSubsystem = new ArmSubsystem();
 
         public final XboxController driverJoytick = new XboxController(OIConstants.kDriverControllerPort);
@@ -58,7 +61,7 @@ public class RobotContainer {
                                 () -> driverJoytick.getRawAxis(2),
                                 () -> driverJoytick.getRawButton(5),
                                 () -> driverJoytick.getRawButton(6)));
-
+                
                 configureButtonBindings();
         }
 
@@ -72,18 +75,18 @@ public class RobotContainer {
                 new JoystickButton(secondaryJoystick, 6).onTrue(
                                 new ArmIntakeOutCmd(armSubsystem, () -> secondaryJoystick.getRawButton(6)));
 
-                new JoystickButton(secondaryJoystick, 3).onTrue(new ArmWristCmd(armSubsystem));
+                new JoystickButton(secondaryJoystick, 7).onTrue(new ArmWristCmd(armSubsystem));
         }
 
         public Command getAutonomousCommand() {
                 // 1. Create trajectory settings
-                TrajectoryConfig config = new TrajectoryConfig(Units.feetToMeters(12), Units.feetToMeters(12));
+                TrajectoryConfig config = new TrajectoryConfig(Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4, Constants.DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
                 config.setReversed(true);
 
                 // 2. Generate trajectory
                 var start = new Pose2d(0, 0,
                                 Rotation2d.fromDegrees(-180));
-                var end = new Pose2d(6.666, 0,
+                var end = new Pose2d(-1, 0,
                                 Rotation2d.fromDegrees(-160));
 
                 var interior = new ArrayList<Translation2d>();
@@ -117,13 +120,14 @@ public class RobotContainer {
                                 swerveSubsystem);
 
                 // 1B. Create trajectory settings
-                TrajectoryConfig configB = new TrajectoryConfig(Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond, Constants.DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
+                TrajectoryConfig configB = new TrajectoryConfig(Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4, Constants.DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
+                // TrajectoryConfig configB = new TrajectoryConfig(Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond, Constants.DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
                 config.setReversed(true);
 
                 // 2. Generate trajectory
                 var startB = new Pose2d(0, 0,
                                 Rotation2d.fromDegrees(-180));
-                var endB = new Pose2d(6.666, 0,
+                var endB = new Pose2d(-2, 0,
                                 Rotation2d.fromDegrees(-160));
 
                 var interiorB = new ArrayList<Translation2d>();
@@ -158,12 +162,15 @@ public class RobotContainer {
 
                 return new SequentialCommandGroup(
                                 new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose())),
-                                // new AutoManipulatorCmd(armSubsystem, -20.0),
+                                // new AutoManipulatorCmd(armSubsystem, -0.0),
                                 // new ArmSliderTopCmd(armSubsystem),
-                                // new AutoOpenGrabberCmd(armSubsystem, 15.0),
-                                // new AutoWaitCmd(armSubsystem, 1000),
+                                // new AutoIntakeInCmd(armSubsystem, 15),
+                                // new AutoWaitCmd(1000),
                                 // new ArmSliderBottomCmd(armSubsystem),
                                 swerveControllerCommandB,
+                                new AutoWaitCmd(750),
+                                swerveControllerCommand,
+                                new AutoChargingBalanceCmd(swerveSubsystem),
                                 new InstantCommand(() -> swerveSubsystem.stopModules()));
         }
 }

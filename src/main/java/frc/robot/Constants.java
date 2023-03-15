@@ -154,13 +154,15 @@ public final class Constants {
 
         // uncertain
         public static final int gArmSliderBottom = 1;
-        public static final int gArmSliderTop = 35;
-        public static final int gArmSliderHumanPlayer = 36;
+        public static final int gArmSliderTop = 41;
+        public static final int gArmSliderHumanPlayer = 22;
 
         public static final double gArmOffset = 1;
         public static final double gRotateoffset = 0.25;
-        public static final double gSliderSpeed = -0.4;
-        public static final double gRotateSpeed = 0.3;
+
+        public static final double gSliderSpeed = -0.6;
+        public static final double gSliderDown = -0.4;
+        public static final double gRotateSpeed = 0.85;
         public static final double gOutputSpeed = 0.10;
         public static final double gIntakeSpeed = 0.50;
     }

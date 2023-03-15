@@ -26,7 +26,7 @@ public class ArmSubsystem extends SubsystemBase {
     public CANSparkMax intakeMotor;
 
     // public static SparkMaxAbsoluteEncoder armRotateEncoder;
-    public RelativeEncoder armRotateEncoder;
+    public static RelativeEncoder armRotateEncoder;
     public static RelativeEncoder wristRotateEncoder;
 
 

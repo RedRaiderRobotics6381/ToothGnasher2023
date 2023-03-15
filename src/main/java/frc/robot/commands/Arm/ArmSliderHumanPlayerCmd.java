@@ -26,21 +26,21 @@ public class ArmSliderHumanPlayerCmd extends CommandBase {
         }
         // down
         else if(armSubsystem.sliderEncoder.getPosition() < -Constants.ArmConstants.gArmSliderHumanPlayer - Constants.ArmConstants.gArmOffset){
-            armSubsystem.leftArmSlider.set(-Constants.ArmConstants.gSliderSpeed);
-            armSubsystem.rightArmSlider.set(Constants.ArmConstants.gSliderSpeed);
+            armSubsystem.leftArmSlider.set(-Constants.ArmConstants.gSliderDown);
+            armSubsystem.rightArmSlider.set(Constants.ArmConstants.gSliderDown);
         }
     }
 
     @Override
     public void end(boolean interrupted) {
-        armSubsystem.leftArmSlider.set(0);
-        armSubsystem.rightArmSlider.set(0);
+        ArmSubsystem.leftArmSlider.set(0);
+        ArmSubsystem.rightArmSlider.set(0);
     }
 
     @Override
     public boolean isFinished() {
-        System.out.println(armSubsystem.sliderEncoder.getPosition() + " Human Player");
-        if(armSubsystem.sliderEncoder.getPosition() < -Constants.ArmConstants.gArmSliderHumanPlayer + Constants.ArmConstants.gArmOffset && armSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderHumanPlayer - Constants.ArmConstants.gArmOffset){
+        System.out.println(ArmSubsystem.sliderEncoder.getPosition() + " Human Player");
+        if(ArmSubsystem.sliderEncoder.getPosition() < -Constants.ArmConstants.gArmSliderHumanPlayer + Constants.ArmConstants.gArmOffset && ArmSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderHumanPlayer - Constants.ArmConstants.gArmOffset){
             return true;
         } else{
             return false;
