@@ -26,7 +26,7 @@ public class ArmSubsystem extends SubsystemBase {
     public CANSparkMax intakeMotor;
 
     // public static SparkMaxAbsoluteEncoder armRotateEncoder;
-    public static RelativeEncoder armRotateEncoder;
+    public static SparkMaxAbsoluteEncoder armRotateEncoder;
     public static RelativeEncoder wristRotateEncoder;
 
 
@@ -40,8 +40,8 @@ public class ArmSubsystem extends SubsystemBase {
 
         sliderEncoder = leftArmSlider.getEncoder();
 
-        armRotateEncoder = armRotateMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
-        // armRotateEncoder = armRotateMotor.	getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
+        // armRotateEncoder = armRotateMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
+        armRotateEncoder = armRotateMotor.	getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
 
         // grabberEncoder = grabberMotor.getEncoder();
 

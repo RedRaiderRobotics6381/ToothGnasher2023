@@ -122,12 +122,12 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
 
         //temporary!!!!!!
-        double rotateoffset = 0.0005;
-        double rotateSpeed = 0.3;
-        double positionPlace = 2.1;
-        double positionGrab = 1.1;
+        // double rotateoffset = 0.0005;
+        // double rotateSpeed = 0.3;
+        // double positionPlace = 2.1;
+        // double positionGrab = 1.1;
 
-        // System.out.println(ArmSubsystem.armRotateEncoder.getPosition());
+        System.out.println(ArmSubsystem.armRotateEncoder.getPosition());
         // ArmSubsystem.armRotateMotor.set(RobotContainer.secondaryJoystick.getRawAxis(5));
         // if (RobotContainer.secondaryJoystick.getRawButton(7)){
         //     if(ArmSubsystem.armRotateEncoder.getPosition() < positionGrab - rotateoffset){
