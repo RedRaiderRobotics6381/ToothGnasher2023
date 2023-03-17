@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 // import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -25,8 +26,8 @@ public class ArmSubsystem extends SubsystemBase {
     public CANSparkMax intakeMotor;
 
     // public static SparkMaxAbsoluteEncoder armRotateEncoder;
-    public RelativeEncoder armRotateEncoder;
-    public RelativeEncoder wristRotateEncoder;
+    public static SparkMaxAbsoluteEncoder armRotateEncoder;
+    public static RelativeEncoder wristRotateEncoder;
 
 
     public ArmSubsystem() {
@@ -39,8 +40,8 @@ public class ArmSubsystem extends SubsystemBase {
 
         sliderEncoder = leftArmSlider.getEncoder();
 
-        armRotateEncoder = armRotateMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
-        // armRotateEncoder = armRotateMotor.	getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
+        // armRotateEncoder = armRotateMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
+        armRotateEncoder = armRotateMotor.	getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
 
         // grabberEncoder = grabberMotor.getEncoder();
 

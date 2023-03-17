@@ -31,7 +31,7 @@ public class DrivePoleAllignCmd extends CommandBase {
     @Override
     public void execute() {
         if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
-            NetworkTableInstance.get
+            // NetworkTableInstance.get
             swerveSubsystem.setModuleStates(move());
         }
     }

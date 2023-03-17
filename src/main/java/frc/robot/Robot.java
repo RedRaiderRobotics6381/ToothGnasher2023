@@ -125,7 +125,7 @@ public class Robot extends TimedRobot {
         // double positionPlace = 2.1;
         // double positionGrab = 1.1;
 
-        // System.out.println(ArmSubsystem.armRotateEncoder.getPosition());
+        System.out.println(RobotContainer.armSubsystem.armRotateEncoder.getPosition());
         // ArmSubsystem.armRotateMotor.set(RobotContainer.secondaryJoystick.getRawAxis(5));
         // if (RobotContainer.secondaryJoystick.getRawButton(7)){
         //     if(ArmSubsystem.armRotateEncoder.getPosition() < positionGrab - rotateoffset){
