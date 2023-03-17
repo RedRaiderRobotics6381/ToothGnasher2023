@@ -108,8 +108,8 @@ public class SwerveSubsystem extends SubsystemBase {
                 // backRight.getState());
         odometer.update(getRotation2d(), getSwerveModulePositions());
 
-        SmartDashboard.putNumber("Robot Heading", getHeading());
-        SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+        // SmartDashboard.putNumber("Robot Heading", getHeading());
+        // SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
         
         SmartDashboard.putString("Special Turn Encoder [" + 9 + "] current angle:",""+frontLeft.getTurningPosition());
 
@@ -119,12 +119,12 @@ public class SwerveSubsystem extends SubsystemBase {
 
         SmartDashboard.putString("Special Turn Encoder [" + 11 + "] current angle:",""+backRight.getTurningPosition());
 
-        SmartDashboard.putString("Gyro Roll:", "" + gyro.getRoll());
-        SmartDashboard.putString("Gyro Pitch:", "" + gyro.getPitch());
-        SmartDashboard.putString("Gyro Yaw:", "" + gyro.getYaw());
+        // SmartDashboard.putString("Gyro Roll:", "" + gyro.getRoll());
+        // SmartDashboard.putString("Gyro Pitch:", "" + gyro.getPitch());
+        // SmartDashboard.putString("Gyro Yaw:", "" + gyro.getYaw());
 
-        SmartDashboard.putNumber("Max Drive Speed: ", DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
-        SmartDashboard.putNumber("Max Turn Speed: ", DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond);
+        // SmartDashboard.putNumber("Max Drive Speed: ", DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+        // SmartDashboard.putNumber("Max Turn Speed: ", DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond);
     }
 
     public void stopModules() {

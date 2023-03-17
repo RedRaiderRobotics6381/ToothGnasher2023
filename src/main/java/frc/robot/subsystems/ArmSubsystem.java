@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 // import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -11,23 +10,23 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
-    public static CANSparkMax leftArmSlider;
-    public static CANSparkMax rightArmSlider;
+    public CANSparkMax leftArmSlider;
+    public CANSparkMax rightArmSlider;
 
     public CANSparkMax suck;
 
-    public static RelativeEncoder sliderEncoder;
+    public RelativeEncoder sliderEncoder;
     public RelativeEncoder grabberEncoder;
 
     public CANSparkMax grabberMotor;
 
-    public static CANSparkMax armRotateMotor;
+    public CANSparkMax armRotateMotor;
     public CANSparkMax wristRotateMotor;
     public CANSparkMax intakeMotor;
 
     // public static SparkMaxAbsoluteEncoder armRotateEncoder;
-    public static RelativeEncoder armRotateEncoder;
-    public static RelativeEncoder wristRotateEncoder;
+    public RelativeEncoder armRotateEncoder;
+    public RelativeEncoder wristRotateEncoder;
 
 
     public ArmSubsystem() {

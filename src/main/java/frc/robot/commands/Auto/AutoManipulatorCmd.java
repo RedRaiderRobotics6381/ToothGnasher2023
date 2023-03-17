@@ -1,11 +1,6 @@
 package frc.robot.commands.Auto;
-
-import java.util.function.Supplier;
-
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class AutoManipulatorCmd extends CommandBase {
@@ -26,24 +21,24 @@ public class AutoManipulatorCmd extends CommandBase {
 
     @Override
     public void execute() {
-        if(ArmSubsystem.armRotateEncoder.getPosition() < change){
-            ArmSubsystem.armRotateMotor.set(Constants.ArmConstants.gRotateSpeed);
+        if(armSubsystem.armRotateEncoder.getPosition() < change){
+            armSubsystem.armRotateMotor.set(Constants.ArmConstants.gRotateSpeed);
         }
-        if(ArmSubsystem.armRotateEncoder.getPosition() > change){
-            ArmSubsystem.armRotateMotor.set(-Constants.ArmConstants.gRotateSpeed); // Might change negative
+        if(armSubsystem.armRotateEncoder.getPosition() > change){
+            armSubsystem.armRotateMotor.set(-Constants.ArmConstants.gRotateSpeed); // Might change negative
         }
     }
 
     @Override
     public void end(boolean interrupted) {
-        ArmSubsystem.armRotateMotor.set(0.03);
+        armSubsystem.armRotateMotor.set(0.03);
     }
 
     @Override
     public boolean isFinished() {
-        System.out.println(ArmSubsystem.armRotateEncoder.getPosition());
+        System.out.println(armSubsystem.armRotateEncoder.getPosition());
 
-        if(ArmSubsystem.armRotateEncoder.getPosition() < change + Constants.ArmConstants.gRotateoffset && ArmSubsystem.armRotateEncoder.getPosition() > change - Constants.ArmConstants.gRotateoffset){
+        if(armSubsystem.armRotateEncoder.getPosition() < change + Constants.ArmConstants.gRotateoffset && armSubsystem.armRotateEncoder.getPosition() > change - Constants.ArmConstants.gRotateoffset){
             return true;
         } else{
             return false;

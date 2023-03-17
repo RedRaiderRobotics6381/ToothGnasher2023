@@ -19,22 +19,22 @@ public class ArmSliderTopCmd extends CommandBase {
 
     @Override
     public void execute() {
-        if(ArmSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderTop){
-            ArmSubsystem.leftArmSlider.set(Constants.ArmConstants.gSliderSpeed);
-            ArmSubsystem.rightArmSlider.set(-Constants.ArmConstants.gSliderSpeed);
+        if(armSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderTop){
+            armSubsystem.leftArmSlider.set(Constants.ArmConstants.gSliderSpeed);
+            armSubsystem.rightArmSlider.set(-Constants.ArmConstants.gSliderSpeed);
         }
     }
 
     @Override
     public void end(boolean interrupted) {
-        ArmSubsystem.leftArmSlider.set(0);
-        ArmSubsystem.rightArmSlider.set(0);
+        armSubsystem.leftArmSlider.set(0);
+        armSubsystem.rightArmSlider.set(0);
     }
 
     @Override
     public boolean isFinished() {
-        System.out.println(ArmSubsystem.sliderEncoder.getPosition() + " Top");
-        if(ArmSubsystem.sliderEncoder.getPosition() <= -Constants.ArmConstants.gArmSliderTop){
+        System.out.println(armSubsystem.sliderEncoder.getPosition() + " Top");
+        if(armSubsystem.sliderEncoder.getPosition() <= -Constants.ArmConstants.gArmSliderTop){
             return true;
         } else{
             return false;

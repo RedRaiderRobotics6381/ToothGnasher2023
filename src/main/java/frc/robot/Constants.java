@@ -1,8 +1,6 @@
 package frc.robot;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -155,7 +153,8 @@ public final class Constants {
         // uncertain
         public static final int gArmSliderBottom = 1;
         public static final int gArmSliderTop = 41;
-        public static final int gArmSliderHumanPlayer = 22;
+        public static final int gArmSliderLow = 22;
+        public static final int gArmSliderHumanPlayer = 37;
 
         public static final double gArmOffset = 1;
         public static final double gRotateoffset = 0.25;
@@ -165,5 +164,10 @@ public final class Constants {
         public static final double gRotateSpeed = 0.85;
         public static final double gOutputSpeed = 0.10;
         public static final double gIntakeSpeed = 0.50;
+    }
+
+    public static final class SensorConstants {
+        public static PIDController PIDspeed = new PIDController(0.15, 0, 0);
+        public static PIDController PIDturn = new PIDController(0.02, 0, 0);
     }
 }

@@ -5,27 +5,22 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.commands.Arm.ArmSliderBottomCmd;
-import frc.robot.commands.Arm.ArmSliderHumanPlayerCmd;
-import frc.robot.commands.Arm.ArmSliderTopCmd;
 
 public class SwerveJoystickCmd extends CommandBase {
 
     private final SwerveSubsystem swerveSubsystem;
     private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction, slow;
-    private final Supplier<Boolean> lbumper, rbumper;
+    private final Supplier<Boolean> lbumper, rbumper, slowbutton;
     private final SlewRateLimiter xLimiter, yLimiter, turningLimiter;
     public double turningChange;
     public double driveChange;
 
     public SwerveJoystickCmd(SwerveSubsystem swerveSubsystem,
             Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction, Supplier<Double> turningSpdFunction,
-            Supplier<Double> slow, Supplier<Boolean> lbumper, Supplier<Boolean> rbumper) {
+            Supplier<Double> slow, Supplier<Boolean> lbumper, Supplier<Boolean> rbumper, Supplier<Boolean> slowbutton) {
         this.swerveSubsystem = swerveSubsystem;
         this.xSpdFunction = xSpdFunction;
         this.ySpdFunction = ySpdFunction;
@@ -33,6 +28,7 @@ public class SwerveJoystickCmd extends CommandBase {
         this.slow = slow;
         this.lbumper = lbumper;
         this.rbumper = rbumper;
+        this.slowbutton = slowbutton;
         this.xLimiter = new SlewRateLimiter(DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
         this.yLimiter = new SlewRateLimiter(DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
         this.turningLimiter = new SlewRateLimiter(DriveConstants.kTeleDriveMaxAngularAccelerationUnitsPerSecond);
@@ -53,6 +49,9 @@ public class SwerveJoystickCmd extends CommandBase {
         } else if(lbumper.get() || rbumper.get()){
             driveChange = 2;
             turningChange = 1;
+        } else if(slowbutton.get()){
+            driveChange = 0.5;
+            turningChange = 0.5;
         } else{
             driveChange = 1;
             turningChange = 1;

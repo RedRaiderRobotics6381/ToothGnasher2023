@@ -110,12 +110,12 @@ public class SwerveModule2 {
         driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
         turningMotor.set(turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
 
-        SmartDashboard.putString("Swerve Module [" + absoluteEncoder.getDeviceID() + "] going to state", state.toString());
-        SmartDashboard.putString("Turn Encoder [" + absoluteEncoder.getDeviceID() + "] current angle:",""+ getTurningPosition());
-        SmartDashboard.putString("Drive Encoder [" + absoluteEncoder.getDeviceID() + "] current speeed:",""+ getDriveVelocity());
+        // SmartDashboard.putString("Swerve Module [" + absoluteEncoder.getDeviceID() + "] going to state", state.toString());
+        // SmartDashboard.putString("Turn Encoder [" + absoluteEncoder.getDeviceID() + "] current angle:",""+ getTurningPosition());
+        // SmartDashboard.putString("Drive Encoder [" + absoluteEncoder.getDeviceID() + "] current speeed:",""+ getDriveVelocity());
 
-        SmartDashboard.putString("Swerve Module [" + absoluteEncoder.getDeviceID() + "] setting the drive motor to:",""+state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
-        SmartDashboard.putString("Swerve Module [" + absoluteEncoder.getDeviceID() + "] setting the turn motor to:",""+ turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
+        // SmartDashboard.putString("Swerve Module [" + absoluteEncoder.getDeviceID() + "] setting the drive motor to:",""+state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+        // SmartDashboard.putString("Swerve Module [" + absoluteEncoder.getDeviceID() + "] setting the turn motor to:",""+ turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
     }
 
     public void stop() {

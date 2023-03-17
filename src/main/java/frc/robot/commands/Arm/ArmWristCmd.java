@@ -2,7 +2,6 @@ package frc.robot.commands.Arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
-import java.util.function.Supplier;
 
 public class ArmWristCmd extends CommandBase {
 
@@ -41,13 +40,13 @@ public class ArmWristCmd extends CommandBase {
     public boolean isFinished() {
         // System.out.println(ArmSubsystem.wristRotateEncoder.getPosition());
         if(clockwise == true){
-            if(Math.abs(ArmSubsystem.wristRotateEncoder.getPosition()) < 60){
+            if(Math.abs(armSubsystem.wristRotateEncoder.getPosition()) < 60){
                 return false;
             } else{
                 return true;
             }
         } else {
-            if(ArmSubsystem.wristRotateEncoder.getPosition() <= 0){
+            if(armSubsystem.wristRotateEncoder.getPosition() <= 0){
                 return true;
             } else{
                 return false;

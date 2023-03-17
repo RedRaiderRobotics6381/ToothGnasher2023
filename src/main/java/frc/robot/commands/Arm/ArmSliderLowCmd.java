@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
 
-public class ArmSliderHumanPlayerCmd extends CommandBase {
+public class ArmSliderLowCmd extends CommandBase {
 
     private final ArmSubsystem armSubsystem;
 
-    public ArmSliderHumanPlayerCmd(ArmSubsystem armSubsystem) {
+    public ArmSliderLowCmd(ArmSubsystem armSubsystem) {
         this.armSubsystem = armSubsystem;
         addRequirements(armSubsystem);
     }
@@ -20,12 +20,12 @@ public class ArmSliderHumanPlayerCmd extends CommandBase {
     @Override
     public void execute() {
         // up
-        if(armSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderHumanPlayer + Constants.ArmConstants.gArmOffset){
+        if(armSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderLow + Constants.ArmConstants.gArmOffset){
             armSubsystem.leftArmSlider.set(Constants.ArmConstants.gSliderSpeed);
             armSubsystem.rightArmSlider.set(-Constants.ArmConstants.gSliderSpeed);
         }
         // down
-        else if(armSubsystem.sliderEncoder.getPosition() < -Constants.ArmConstants.gArmSliderHumanPlayer - Constants.ArmConstants.gArmOffset){
+        else if(armSubsystem.sliderEncoder.getPosition() < -Constants.ArmConstants.gArmSliderLow - Constants.ArmConstants.gArmOffset){
             armSubsystem.leftArmSlider.set(-Constants.ArmConstants.gSliderDown);
             armSubsystem.rightArmSlider.set(Constants.ArmConstants.gSliderDown);
         }
@@ -40,7 +40,7 @@ public class ArmSliderHumanPlayerCmd extends CommandBase {
     @Override
     public boolean isFinished() {
         System.out.println(armSubsystem.sliderEncoder.getPosition() + " Human Player");
-        if(armSubsystem.sliderEncoder.getPosition() < -Constants.ArmConstants.gArmSliderHumanPlayer + Constants.ArmConstants.gArmOffset && armSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderHumanPlayer - Constants.ArmConstants.gArmOffset){
+        if(armSubsystem.sliderEncoder.getPosition() < -Constants.ArmConstants.gArmSliderLow + Constants.ArmConstants.gArmOffset && armSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderLow - Constants.ArmConstants.gArmOffset){
             return true;
         } else{
             return false;

@@ -31,7 +31,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.Arm.ArmIntakeInCmd;
 import frc.robot.commands.Arm.ArmIntakeOutCmd;
 import frc.robot.commands.Arm.ArmSliderBottomCmd;
-import frc.robot.commands.Arm.ArmSliderHumanPlayerCmd;
+import frc.robot.commands.Arm.ArmSliderLowCmd;
 import frc.robot.commands.Arm.ArmSliderTopCmd;
 import frc.robot.commands.Arm.ArmWristCmd;
 import frc.robot.commands.Auto.AutoManipulatorCmd;
@@ -39,6 +39,8 @@ import frc.robot.commands.Auto.AutoChargingBalanceCmd;
 import frc.robot.commands.Auto.AutoIntakeInCmd;
 import frc.robot.commands.Auto.AutoIntakeOutCmd;
 import frc.robot.commands.Auto.AutoWaitCmd;
+import frc.robot.commands.Drive.DrivePoleAllignCmd;
+import frc.robot.commands.Drive.ResetGyroCmd;
 import frc.robot.commands.Drive.SwerveJoystickCmd;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -60,14 +62,18 @@ public class RobotContainer {
                                 () -> -driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
                                 () -> driverJoytick.getRawAxis(2),
                                 () -> driverJoytick.getRawButton(5),
-                                () -> driverJoytick.getRawButton(6)));
+                                () -> driverJoytick.getRawButton(6),
+                                () -> driverJoytick.getRawButton(1)));
                 
                 configureButtonBindings();
         }
 
         private void configureButtonBindings() {
+
+                // Secondary
+
                 new JoystickButton(secondaryJoystick, 1).onTrue(new ArmSliderBottomCmd(armSubsystem));
-                new JoystickButton(secondaryJoystick, 2).onTrue(new ArmSliderHumanPlayerCmd(armSubsystem));
+                new JoystickButton(secondaryJoystick, 2).onTrue(new ArmSliderLowCmd(armSubsystem));
                 new JoystickButton(secondaryJoystick, 4).onTrue(new ArmSliderTopCmd(armSubsystem));
 
                 new JoystickButton(secondaryJoystick, 5).onTrue(
@@ -76,6 +82,12 @@ public class RobotContainer {
                                 new ArmIntakeOutCmd(armSubsystem, () -> secondaryJoystick.getRawButton(6)));
 
                 new JoystickButton(secondaryJoystick, 7).onTrue(new ArmWristCmd(armSubsystem));
+
+                // Primary
+
+                new JoystickButton(driverJoytick, 3).onTrue(new DrivePoleAllignCmd(swerveSubsystem, () -> driverJoytick.getRawButton(3)));
+
+                new JoystickButton(driverJoytick, 4).onTrue(new ResetGyroCmd(swerveSubsystem));
         }
 
         public Command getAutonomousCommand() {
