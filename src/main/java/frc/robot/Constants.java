@@ -164,6 +164,21 @@ public final class Constants {
         public static final double gRotateSpeed = 0.85;
         public static final double gOutputSpeed = 0.10;
         public static final double gIntakeSpeed = 0.50;
+
+        public static final double rotateoffset = 2.5;
+
+        public static final double pos1 = 95;
+        public static final double pos2 = 115;
+        public static final double pos3 = 150;
+        public static final double pos4 = 291;
+        
+        public static final double pos1Gravity = 0.03;
+        public static final double pos2Gravity = 0.03;
+        public static final double pos3Gravity = 0.02;
+        public static final double pos4Gravity = -0.04;
+        public static final double restriction1 = 85;
+        public static final double restriction2 = 290;
+        public static final double rotateSpeed = 1;
     }
 
     public static final class SensorConstants {

@@ -1,4 +1,4 @@
-package frc.robot.commands.Arm;
+package frc.robot.commands.Arm.Intake;
 
 import java.util.function.Supplier;
 
@@ -8,12 +8,12 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ArmSubsystem;
 
-public class ArmIntakeOutCmd extends CommandBase {
+public class ArmIntakeInCmd extends CommandBase {
 
     private final ArmSubsystem armSubsystem;
     Supplier<Boolean> button;
 
-    public ArmIntakeOutCmd(ArmSubsystem armSubsystem, Supplier<Boolean> button) {
+    public ArmIntakeInCmd(ArmSubsystem armSubsystem, Supplier<Boolean> button) {
         this.armSubsystem = armSubsystem;
         this.button = button;
         addRequirements(armSubsystem);
@@ -21,11 +21,12 @@ public class ArmIntakeOutCmd extends CommandBase {
 
     @Override
     public void initialize() {
+        RobotContainer.secondaryJoystick.setRumble(RumbleType.kRightRumble, 0.5);
     }
 
     @Override
     public void execute() {
-        armSubsystem.intakeMotor.set(-Constants.ArmConstants.gOutputSpeed);
+        armSubsystem.intakeMotor.set(Constants.ArmConstants.gIntakeSpeed);
     }
 
     @Override

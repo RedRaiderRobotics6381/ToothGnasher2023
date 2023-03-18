@@ -1,14 +1,14 @@
-package frc.robot.commands.Arm;
+package frc.robot.commands.Arm.Slider;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
 
-public class ArmSliderBottomCmd extends CommandBase {
+public class ArmSliderTopCmd extends CommandBase {
 
     private final ArmSubsystem armSubsystem;
 
-    public ArmSliderBottomCmd(ArmSubsystem armSubsystem) {
+    public ArmSliderTopCmd(ArmSubsystem armSubsystem) {
         this.armSubsystem = armSubsystem;
         addRequirements(armSubsystem);
     }
@@ -19,9 +19,9 @@ public class ArmSliderBottomCmd extends CommandBase {
 
     @Override
     public void execute() {
-        if(armSubsystem.sliderEncoder.getPosition() < -Constants.ArmConstants.gArmSliderBottom){
-            armSubsystem.leftArmSlider.set(-Constants.ArmConstants.gSliderDown);
-            armSubsystem.rightArmSlider.set(Constants.ArmConstants.gSliderDown);
+        if(armSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderTop){
+            armSubsystem.leftArmSlider.set(Constants.ArmConstants.gSliderSpeed);
+            armSubsystem.rightArmSlider.set(-Constants.ArmConstants.gSliderSpeed);
         }
     }
 
@@ -33,7 +33,8 @@ public class ArmSliderBottomCmd extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(armSubsystem.sliderEncoder.getPosition() > -Constants.ArmConstants.gArmSliderBottom){
+        System.out.println(armSubsystem.sliderEncoder.getPosition() + " Top");
+        if(armSubsystem.sliderEncoder.getPosition() <= -Constants.ArmConstants.gArmSliderTop){
             return true;
         } else{
             return false;

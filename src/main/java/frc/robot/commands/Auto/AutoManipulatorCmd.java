@@ -1,44 +1,49 @@
 package frc.robot.commands.Auto;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class AutoManipulatorCmd extends CommandBase {
 
     private final ArmSubsystem armSubsystem;
-    Double change, start;
+    int position;
+    double targetPosition;
+    double rotateoffset = 5;
+    double rotateSpeed = 0.5;
+    double counterWeight = 0.1;
 
-    public AutoManipulatorCmd(ArmSubsystem armSubsystem, Double change) {
+    public AutoManipulatorCmd(ArmSubsystem armSubsystem, int position) {
         this.armSubsystem = armSubsystem;
-        this.change = change;
+        this.position = position;
         addRequirements(armSubsystem);
     }
 
     @Override
     public void initialize() {
-        start = armSubsystem.armRotateEncoder.getPosition();
+        targetPosition = position;
     }
 
     @Override
     public void execute() {
-        if(armSubsystem.armRotateEncoder.getPosition() < change){
-            armSubsystem.armRotateMotor.set(Constants.ArmConstants.gRotateSpeed);
-        }
-        if(armSubsystem.armRotateEncoder.getPosition() > change){
-            armSubsystem.armRotateMotor.set(-Constants.ArmConstants.gRotateSpeed); // Might change negative
-        }
+        double P = ((Math.abs(armSubsystem.armRotateEncoder.getPosition() - targetPosition)+50)/300);
+       
+       if(armSubsystem.armRotateEncoder.getPosition() > targetPosition + rotateoffset){
+        RobotContainer.armSubsystem.armRotateMotor.set(-rotateSpeed * P);
+       }
+       if(armSubsystem.armRotateEncoder.getPosition() < targetPosition - rotateoffset){
+        RobotContainer.armSubsystem.armRotateMotor.set(rotateSpeed * P);
+       }
     }
 
     @Override
     public void end(boolean interrupted) {
-        armSubsystem.armRotateMotor.set(0.03);
+        RobotContainer.armSubsystem.armRotateMotor.set(0);
     }
 
     @Override
     public boolean isFinished() {
-        System.out.println(armSubsystem.armRotateEncoder.getPosition());
-
-        if(armSubsystem.armRotateEncoder.getPosition() < change + Constants.ArmConstants.gRotateoffset && armSubsystem.armRotateEncoder.getPosition() > change - Constants.ArmConstants.gRotateoffset){
+        System.out.println(armSubsystem.grabberEncoder.getPosition());
+        if(armSubsystem.armRotateEncoder.getPosition() <= targetPosition + rotateoffset && armSubsystem.armRotateEncoder.getPosition() >= targetPosition - rotateoffset){
             return true;
         } else{
             return false;

@@ -28,27 +28,32 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.Arm.ArmIntakeInCmd;
-import frc.robot.commands.Arm.ArmIntakeOutCmd;
-import frc.robot.commands.Arm.ArmSliderBottomCmd;
-import frc.robot.commands.Arm.ArmSliderLowCmd;
-import frc.robot.commands.Arm.ArmSliderTopCmd;
-import frc.robot.commands.Arm.ArmWristCmd;
+import frc.robot.commands.Arm.Intake.ArmIntakeInCmd;
+import frc.robot.commands.Arm.Intake.ArmIntakeOutCmd;
+import frc.robot.commands.Arm.Slider.ArmSliderBottomCmd;
+import frc.robot.commands.Arm.Slider.ArmSliderLowCmd;
+import frc.robot.commands.Arm.Slider.ArmSliderTopCmd;
+import frc.robot.commands.Arm.Wrist.ArmWristCmd;
 import frc.robot.commands.Auto.AutoManipulatorCmd;
 import frc.robot.commands.Auto.AutoChargingBalanceCmd;
-import frc.robot.commands.Auto.AutoIntakeInCmd;
-import frc.robot.commands.Auto.AutoIntakeOutCmd;
 import frc.robot.commands.Auto.AutoWaitCmd;
+import frc.robot.commands.Auto.Intake.AutoIntakeOutCmd;
+import frc.robot.commands.Auto.Manipulator.AutoManipulatorDriveCmd;
+import frc.robot.commands.Auto.Manipulator.AutoManipulatorHumanCmd;
+import frc.robot.commands.Auto.Manipulator.AutoManipulatorPlaceCmd;
+import frc.robot.commands.Auto.Intake.AutoIntakeInCmd;
 import frc.robot.commands.Drive.DrivePoleAllignCmd;
 import frc.robot.commands.Drive.ResetGyroCmd;
 import frc.robot.commands.Drive.SwerveJoystickCmd;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.RotateSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class RobotContainer {
 
         public final static SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
         public final static ArmSubsystem armSubsystem = new ArmSubsystem();
+        public final static RotateSubsystem rotateSubsystem = new RotateSubsystem();
 
         public final XboxController driverJoytick = new XboxController(OIConstants.kDriverControllerPort);
         public final static XboxController secondaryJoystick = new XboxController(
@@ -76,6 +81,8 @@ public class RobotContainer {
                 new JoystickButton(secondaryJoystick, 2).onTrue(new ArmSliderLowCmd(armSubsystem));
                 new JoystickButton(secondaryJoystick, 4).onTrue(new ArmSliderTopCmd(armSubsystem));
 
+                new JoystickButton(secondaryJoystick, 4).onTrue(Commands.parallel(new ArmSliderTopCmd(armSubsystem), new AutoManipulatorDriveCmd(armSubsystem)));
+
                 new JoystickButton(secondaryJoystick, 5).onTrue(
                                 new ArmIntakeInCmd(armSubsystem, () -> secondaryJoystick.getRawButton(5)));
                 new JoystickButton(secondaryJoystick, 6).onTrue(
@@ -88,6 +95,7 @@ public class RobotContainer {
                 new JoystickButton(driverJoytick, 3).onTrue(new DrivePoleAllignCmd(swerveSubsystem, () -> driverJoytick.getRawButton(3)));
 
                 new JoystickButton(driverJoytick, 4).onTrue(new ResetGyroCmd(swerveSubsystem));
+
         }
 
         public Command getAutonomousCommand() {

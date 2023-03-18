@@ -1,14 +1,9 @@
 package frc.robot.commands.Auto;
-
-import java.util.function.Supplier;
-
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ArmSubsystem;
 
-public class AutoRotateCmd extends CommandBase {
+public class AutoManipulatorPresetCmd extends CommandBase {
 
     private final ArmSubsystem armSubsystem;
     int position;
@@ -21,7 +16,7 @@ public class AutoRotateCmd extends CommandBase {
     double rotateSpeed = 0.5;
     double counterWeight = 0.1;
 
-    public AutoRotateCmd(ArmSubsystem armSubsystem, int position) {
+    public AutoManipulatorPresetCmd(ArmSubsystem armSubsystem, int position) {
         this.armSubsystem = armSubsystem;
         this.position = position;
         addRequirements(armSubsystem);
@@ -45,12 +40,12 @@ public class AutoRotateCmd extends CommandBase {
 
     @Override
     public void execute() {
-        double P = ((Math.abs(ArmSubsystem.armRotateEncoder.getPosition() - targetposition)+50)/300);
+        double P = ((Math.abs(armSubsystem.armRotateEncoder.getPosition() - targetposition)+50)/300);
        
-       if(ArmSubsystem.armRotateEncoder.getPosition() > targetposition + rotateoffset){
+       if(armSubsystem.armRotateEncoder.getPosition() > targetposition + rotateoffset){
         RobotContainer.armSubsystem.armRotateMotor.set(-rotateSpeed * P);
        }
-       if(ArmSubsystem.armRotateEncoder.getPosition() < targetposition - rotateoffset){
+       if(armSubsystem.armRotateEncoder.getPosition() < targetposition - rotateoffset){
         RobotContainer.armSubsystem.armRotateMotor.set(rotateSpeed * P);
        }
     }
