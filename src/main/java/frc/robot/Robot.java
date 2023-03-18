@@ -47,6 +47,7 @@ public class Robot extends TimedRobot {
         camera1.setResolution(160, 120);
 
         m_robotContainer = new RobotContainer();
+
     }
 
     /**
@@ -113,7 +114,7 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
-        RobotContainer.armSubsystem.wristRotateEncoder.setPosition(0);
+        // RobotContainer.armSubsystem.wristRotateEncoder.setPosition(0);
         RobotContainer.armSubsystem.sliderEncoder.setPosition(0);
 
     }
@@ -121,6 +122,10 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
+
+        //Wrist Testing
+        // RobotContainer.armSubsystem.wristRotateMotor.set(RobotContainer.secondaryJoystick.getRawAxis(5));
+        System.out.println(RobotContainer.armSubsystem.wristRotateEncoder.getPosition());
 
     //     double P = ((Math.abs(RobotContainer.armSubsystem.armRotateEncoder.getPosition() - targetPos)+50)/300);
     //     if(targetPos == ArmConstants.pos4){

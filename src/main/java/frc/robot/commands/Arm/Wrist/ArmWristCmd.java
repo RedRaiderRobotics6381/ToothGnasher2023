@@ -20,9 +20,9 @@ public class ArmWristCmd extends CommandBase {
     @Override
     public void execute() {
         if(clockwise == true){
-            armSubsystem.wristRotateMotor.set(0.5);
+            armSubsystem.wristRotateMotor.set(0.9 * ((Math.abs(armSubsystem.wristRotateEncoder.getPosition()-90)+20)/180));
         } else{
-            armSubsystem.wristRotateMotor.set(-0.5);
+            armSubsystem.wristRotateMotor.set(-0.9 * ((Math.abs(armSubsystem.wristRotateEncoder.getPosition()-270)+50)/180));
         }
     }
 
@@ -40,13 +40,13 @@ public class ArmWristCmd extends CommandBase {
     public boolean isFinished() {
         // System.out.println(ArmSubsystem.wristRotateEncoder.getPosition());
         if(clockwise == true){
-            if(Math.abs(armSubsystem.wristRotateEncoder.getPosition()) < 60){
+            if(armSubsystem.wristRotateEncoder.getPosition() > 90){
                 return false;
             } else{
                 return true;
             }
         } else {
-            if(armSubsystem.wristRotateEncoder.getPosition() <= 0){
+            if(armSubsystem.wristRotateEncoder.getPosition() >= 250){
                 return true;
             } else{
                 return false;

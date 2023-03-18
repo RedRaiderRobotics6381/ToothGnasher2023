@@ -6,6 +6,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -27,7 +28,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     // public static SparkMaxAbsoluteEncoder armRotateEncoder;
     // public SparkMaxAbsoluteEncoder armRotateEncoder;
-    public RelativeEncoder wristRotateEncoder;
+    public SparkMaxAbsoluteEncoder wristRotateEncoder;
 
 
     public ArmSubsystem() {
@@ -47,7 +48,9 @@ public class ArmSubsystem extends SubsystemBase {
 
         // grabberEncoder = grabberMotor.getEncoder();
 
-        wristRotateEncoder = wristRotateMotor.getEncoder();
+        wristRotateEncoder = wristRotateMotor.getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
+        wristRotateEncoder.setPositionConversionFactor(360);
+        wristRotateEncoder.setZeroOffset(259);
 
         // armRotateEncoder.setPositionConversionFactor(0);
         sliderEncoder.setPositionConversionFactor(0.5855165417); // 1.31741221882
