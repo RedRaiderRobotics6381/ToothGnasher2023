@@ -6,11 +6,10 @@ import frc.robot.subsystems.ArmSubsystem;
 public class AutoIntakeOutCmd extends CommandBase {
 
     private final ArmSubsystem armSubsystem;
-    int time;
 
-    public AutoIntakeOutCmd(ArmSubsystem armSubsystem, int time) {
+    public AutoIntakeOutCmd(ArmSubsystem armSubsystem) {
         this.armSubsystem = armSubsystem;
-        this.time = time;
+        // this.time = time;
         addRequirements(armSubsystem);
     }
 
@@ -19,21 +18,16 @@ public class AutoIntakeOutCmd extends CommandBase {
 
     @Override
     public void execute() {
-        armSubsystem.intakeMotor.set(Constants.ArmConstants.gOutputSpeed);
+        armSubsystem.intakeMotor.set(-Constants.ArmConstants.gOutputSpeed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        armSubsystem.intakeMotor.set(-0.05);
+        armSubsystem.intakeMotor.set(0.05);
     }
 
     @Override
     public boolean isFinished() {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        return true;
+        return false;
     }
 }

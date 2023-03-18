@@ -21,12 +21,12 @@ public class ArmSubsystem extends SubsystemBase {
 
     public CANSparkMax grabberMotor;
 
-    public CANSparkMax armRotateMotor;
+    // public CANSparkMax armRotateMotor;
     public CANSparkMax wristRotateMotor;
     public CANSparkMax intakeMotor;
 
     // public static SparkMaxAbsoluteEncoder armRotateEncoder;
-    public SparkMaxAbsoluteEncoder armRotateEncoder;
+    // public SparkMaxAbsoluteEncoder armRotateEncoder;
     public RelativeEncoder wristRotateEncoder;
 
 
@@ -36,20 +36,20 @@ public class ArmSubsystem extends SubsystemBase {
 
         wristRotateMotor =  new CANSparkMax(Constants.ArmConstants.kManipulatorWristMotor, MotorType.kBrushless);
         intakeMotor =  new CANSparkMax(Constants.ArmConstants.kManipulatorIntakeMotor, MotorType.kBrushless);
-        armRotateMotor = new CANSparkMax(Constants.ArmConstants.kArmRotateMotor,MotorType.kBrushless);
+        // armRotateMotor = new CANSparkMax(Constants.ArmConstants.kArmRotateMotor,MotorType.kBrushless);
 
         sliderEncoder = leftArmSlider.getEncoder();
 
         // armRotateEncoder = armRotateMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
-        armRotateEncoder = armRotateMotor.	getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
-        armRotateEncoder.setPositionConversionFactor(360);
-        armRotateEncoder.setZeroOffset(190);
+        // armRotateEncoder = armRotateMotor.	getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
+        // armRotateEncoder.setPositionConversionFactor(360);
+        // armRotateEncoder.setZeroOffset(190);
 
         // grabberEncoder = grabberMotor.getEncoder();
 
         wristRotateEncoder = wristRotateMotor.getEncoder();
 
-        armRotateEncoder.setPositionConversionFactor(0);
+        // armRotateEncoder.setPositionConversionFactor(0);
         sliderEncoder.setPositionConversionFactor(0.5855165417); // 1.31741221882
         // grabberEncoder.setPositionConversionFactor(2.666);
     }

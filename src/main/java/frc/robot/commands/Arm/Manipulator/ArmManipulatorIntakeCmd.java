@@ -1,14 +1,14 @@
-package frc.robot.commands.Auto.Manipulator;
+package frc.robot.commands.Arm.Manipulator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.RotateSubsystem;
 
-public class AutoManipulatorIntakeCmd extends CommandBase {
+public class ArmManipulatorIntakeCmd extends CommandBase {
 
     private final RotateSubsystem rotateSubsystem;
     double P;
 
-    public AutoManipulatorIntakeCmd(RotateSubsystem rotateSubsystem) {
+    public ArmManipulatorIntakeCmd(RotateSubsystem rotateSubsystem) {
         this.rotateSubsystem = rotateSubsystem;
         addRequirements(rotateSubsystem);
     }

@@ -19,12 +19,12 @@ public class AutoIntakeInCmd extends CommandBase {
 
     @Override
     public void execute() {
-        armSubsystem.intakeMotor.set(-Constants.ArmConstants.gIntakeSpeed);
+        armSubsystem.intakeMotor.set(Constants.ArmConstants.gIntakeSpeed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        armSubsystem.intakeMotor.set(-0.05);
+        armSubsystem.intakeMotor.set(0.05);
     }
 
     @Override
