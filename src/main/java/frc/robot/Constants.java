@@ -154,7 +154,7 @@ public final class Constants {
         public static final int gArmSliderBottom = 1;
         public static final int gArmSliderTop = 41;
         public static final int gArmSliderLow = 22;
-        public static final int gArmSliderHumanPlayer = 37;
+        public static final int gArmSliderHumanPlayer = 41;
 
         public static final double gArmOffset = 1;
         public static final double gRotateoffset = 0.25;
@@ -167,9 +167,14 @@ public final class Constants {
 
         public static final double rotateoffset = 2.5;
 
-        public static final double pos1 = 95;
-        public static final double pos2 = 115;
+        // manipulator rotations
+        // human player
+        public static final double pos1 = 100;
+        // placing
+        public static final double pos2 = 117;
+        // up
         public static final double pos3 = 150;
+        // intake
         public static final double pos4 = 291;
         
         public static final double pos1Gravity = 0.03;
@@ -177,7 +182,7 @@ public final class Constants {
         public static final double pos3Gravity = 0.02;
         public static final double pos4Gravity = -0.04;
         public static final double restriction1 = 85;
-        public static final double restriction2 = 290;
+        public static final double restriction2 = 291;
         public static final double rotateSpeed = 1;
     }
 

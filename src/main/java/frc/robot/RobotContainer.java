@@ -21,6 +21,7 @@ import frc.robot.commands.Arm.Slider.ArmSliderHumanPlayerCmd;
 import frc.robot.commands.Arm.Slider.ArmSliderLowCmd;
 import frc.robot.commands.Arm.Slider.ArmSliderTopCmd;
 import frc.robot.commands.Arm.Wrist.ArmWristCmd;
+import frc.robot.commands.Auto.AutoDriveCmd;
 import frc.robot.commands.Auto.AutoWaitCmd;
 import frc.robot.commands.Auto.Intake.AutoIntakeOutCmd;
 import frc.robot.commands.Auto.Movement.Trajectories;
@@ -36,23 +37,26 @@ public class RobotContainer {
         private final Command autoMiddle = new SequentialCommandGroup(
                 new InstantCommand(
                                 () -> swerveSubsystem.resetOdometry(Trajectories.getTraj1().getInitialPose())),
-                // Commands.parallel(new ArmSliderTopCmd(armSubsystem),
-                // new ArmManipulatorPlaceCmd(rotateSubsystem)),
-                // Commands.race(new AutoIntakeOutCmd(armSubsystem), new AutoWaitCmd(300)),
-                // Commands.parallel(new ArmSliderBottomCmd(armSubsystem),
-                // new ArmManipulatorDriveCmd(rotateSubsystem)),
-
-                Trajectories.traj1(),
-                new AutoWaitCmd(2000),
+                Commands.parallel(new ArmSliderTopCmd(armSubsystem),
+                new ArmManipulatorPlaceCmd(rotateSubsystem)),
+                Commands.race(new AutoIntakeOutCmd(armSubsystem), new AutoWaitCmd(300)),
+                Commands.parallel(new ArmSliderBottomCmd(armSubsystem),
+                new ArmManipulatorDriveCmd(rotateSubsystem)),
+                Trajectories.traj3(),
+                Trajectories.traj1(), // traj1()
+                new AutoWaitCmd(500),
                 Trajectories.traj2(),
-                new InstantCommand(() -> swerveSubsystem.stopModules()));;
+                Commands.race(new AutoDriveCmd(swerveSubsystem, 0.2), new AutoWaitCmd(10)),
+                new InstantCommand(() -> swerveSubsystem.stopModules()));
 
         private final Command autoSide = new SequentialCommandGroup(
-                new InstantCommand(() -> swerveSubsystem.resetOdometry(Trajectories.getTraj1().getInitialPose())),
-                Trajectories.traj1(),
-                new AutoWaitCmd(2000),
-                Trajectories.traj2(),
-                new InstantCommand(() -> swerveSubsystem.stopModules()));;
+                Commands.parallel(new ArmSliderTopCmd(armSubsystem),
+                new ArmManipulatorPlaceCmd(rotateSubsystem)),
+                Commands.race(new AutoIntakeOutCmd(armSubsystem), new AutoWaitCmd(300)),
+                Commands.parallel(new ArmSliderBottomCmd(armSubsystem),
+                new ArmManipulatorDriveCmd(rotateSubsystem)),
+                Trajectories.traj4(),
+                new InstantCommand(() -> swerveSubsystem.stopModules()));
 
         private final Command autoPlace = new SequentialCommandGroup(
                 new InstantCommand(() -> swerveSubsystem.resetOdometry(Trajectories.getTraj1().getInitialPose())),
@@ -110,7 +114,7 @@ public class RobotContainer {
                 new JoystickButton(secondaryJoystick, 4).onTrue(Commands.parallel(new ArmSliderTopCmd(armSubsystem),
                                 new ArmManipulatorPlaceCmd(rotateSubsystem)));
 
-                new JoystickButton(secondaryJoystick, 10).onTrue(new ArmManipulatorIntakeCmd(rotateSubsystem));
+                new JoystickButton(secondaryJoystick, 8).onTrue(new ArmManipulatorIntakeCmd(rotateSubsystem));
 
                 new JoystickButton(secondaryJoystick, 5).onTrue(
                                 new ArmIntakeInCmd(armSubsystem, () -> secondaryJoystick.getRawButton(5)));

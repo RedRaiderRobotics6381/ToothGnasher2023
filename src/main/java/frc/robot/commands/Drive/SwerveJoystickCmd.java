@@ -5,6 +5,8 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -42,9 +44,19 @@ public class SwerveJoystickCmd extends CommandBase {
     @Override
     public void execute() {
 
+        if(RobotContainer.secondaryJoystick.getRawAxis(5) < -0.25 && RobotContainer.rotateSubsystem.armRotateEncoder.getPosition() > ArmConstants.restriction1){
+            RobotContainer.rotateSubsystem.armRotateMotor.set(RobotContainer.secondaryJoystick.getRawAxis(5)* 0.4);
+            // targetPos = RobotContainer.armSubsystem.armRotateEncoder.getPosition();
+           }
+    
+           if(RobotContainer.secondaryJoystick.getRawAxis(5) > 0.25 && RobotContainer.rotateSubsystem.armRotateEncoder.getPosition() < ArmConstants.restriction2){
+            RobotContainer.rotateSubsystem.armRotateMotor.set(RobotContainer.secondaryJoystick.getRawAxis(5)* 0.4);
+            // targetPos = RobotContainer.armSubsystem.armRotateEncoder.getPosition();
+           }
+           
         // 0.5 Spencer buttons
         if(lbumper.get() && rbumper.get()){
-            driveChange = 20;
+            driveChange = 3;
             turningChange = 4;
         } else if(lbumper.get() || rbumper.get()){
             driveChange = 2;
