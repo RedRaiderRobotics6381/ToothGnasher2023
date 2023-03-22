@@ -26,7 +26,9 @@ public class DrivePoleAllignCmd extends CommandBase {
     }
 
     @Override
-    public void initialize() {}
+    public void initialize() {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+    }
 
     @Override
     public void execute() {
@@ -38,6 +40,7 @@ public class DrivePoleAllignCmd extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
         // armSubsystem.intakeMotor.set(-0.05);
     }
 
@@ -52,9 +55,17 @@ public class DrivePoleAllignCmd extends CommandBase {
 
     public static SwerveModuleState[] move(){
         double speed = SensorConstants.PIDspeed.calculate(3.5, getDistance(getVerticle()));
-        double turn = SensorConstants.PIDturn.calculate(0, getHorizontal());
+        double side = -SensorConstants.PIDside.calculate(0, getHorizontal());
+        double turn = -SensorConstants.PIDturn.calculate(0, getHorizontal());
 
-        chassisSpeeds = new ChassisSpeeds(speed, 0, turn);
+        System.out.println("Side : " + side); // 0.3
+        System.out.println("Turn : " + turn); // 0.03
+
+        if(Math.abs(side) < 0.3 && Math.abs(turn) < 0.03){
+            chassisSpeeds = new ChassisSpeeds(speed * 2.5, side, turn);
+        } else{
+            chassisSpeeds = new ChassisSpeeds(0, side, turn);
+        }
 
         SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 

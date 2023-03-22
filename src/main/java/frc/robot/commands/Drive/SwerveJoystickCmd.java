@@ -44,15 +44,15 @@ public class SwerveJoystickCmd extends CommandBase {
     @Override
     public void execute() {
 
-        if(RobotContainer.secondaryJoystick.getRawAxis(5) < -0.25 && RobotContainer.rotateSubsystem.armRotateEncoder.getPosition() > ArmConstants.restriction1){
-            RobotContainer.rotateSubsystem.armRotateMotor.set(RobotContainer.secondaryJoystick.getRawAxis(5)* 0.4);
-            // targetPos = RobotContainer.armSubsystem.armRotateEncoder.getPosition();
-           }
+        // if(RobotContainer.secondaryJoystick.getRawAxis(5) < -0.25 && RobotContainer.rotateSubsystem.armRotateEncoder.getPosition() > ArmConstants.restriction1){
+        //     RobotContainer.rotateSubsystem.armRotateMotor.set(RobotContainer.secondaryJoystick.getRawAxis(5)* 0.4);
+        //     // targetPos = RobotContainer.armSubsystem.armRotateEncoder.getPosition();
+        //    }
     
-           if(RobotContainer.secondaryJoystick.getRawAxis(5) > 0.25 && RobotContainer.rotateSubsystem.armRotateEncoder.getPosition() < ArmConstants.restriction2){
-            RobotContainer.rotateSubsystem.armRotateMotor.set(RobotContainer.secondaryJoystick.getRawAxis(5)* 0.4);
-            // targetPos = RobotContainer.armSubsystem.armRotateEncoder.getPosition();
-           }
+        //    if(RobotContainer.secondaryJoystick.getRawAxis(5) > 0.25 && RobotContainer.rotateSubsystem.armRotateEncoder.getPosition() < ArmConstants.restriction2){
+        //     RobotContainer.rotateSubsystem.armRotateMotor.set(RobotContainer.secondaryJoystick.getRawAxis(5)* 0.4);
+        //     // targetPos = RobotContainer.armSubsystem.armRotateEncoder.getPosition();
+        //    }
            
         // 0.5 Spencer buttons
         if(lbumper.get() && rbumper.get()){

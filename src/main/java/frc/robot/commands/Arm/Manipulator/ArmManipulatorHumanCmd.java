@@ -1,5 +1,6 @@
 package frc.robot.commands.Arm.Manipulator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.RotateSubsystem;
 
@@ -15,7 +16,8 @@ public class ArmManipulatorHumanCmd extends CommandBase {
 
     @Override
     public void initialize() {
-        
+        Constants.ArmConstants.manipulatorOn = true;
+        ArmConstants.manipulatorManual = false;
     }
 
     @Override
@@ -34,6 +36,8 @@ public class ArmManipulatorHumanCmd extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         rotateSubsystem.armRotateMotor.set(ArmConstants.pos1Gravity);
+
+        Constants.ArmConstants.manipulatorOn = false;
     }
 
     @Override

@@ -181,13 +181,18 @@ public final class Constants {
         public static final double pos2Gravity = 0.03;
         public static final double pos3Gravity = 0.02;
         public static final double pos4Gravity = -0.04;
-        public static final double restriction1 = 85;
+        public static final double restriction1 = 100;
         public static final double restriction2 = 291;
         public static final double rotateSpeed = 1;
+
+        public static boolean manipulatorOn = false;
+        public static boolean manipulatorManual = false;
+        public static int rightYPort = 5;
     }
 
     public static final class SensorConstants {
-        public static PIDController PIDspeed = new PIDController(0.15, 0, 0);
-        public static PIDController PIDturn = new PIDController(0.02, 0, 0);
+        public static PIDController PIDspeed = new PIDController(0.20, 0, 0);
+        public static PIDController PIDside = new PIDController(0.06, 0, 0);
+        public static PIDController PIDturn = new PIDController(0.005, 0, 0);
     }
 }
