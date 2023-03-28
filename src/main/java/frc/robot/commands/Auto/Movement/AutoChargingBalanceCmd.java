@@ -4,8 +4,9 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.Constants.SensorConstants;
+import frc.robot.subsystems.Primary.SwerveSubsystem;
+import frc.robot.subsystems.Secondary.ArmSubsystem;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
 public class AutoChargingBalanceCmd extends CommandBase {
@@ -25,7 +26,9 @@ public class AutoChargingBalanceCmd extends CommandBase {
     public void execute() {
         ChassisSpeeds chassisSpeeds;
 
-        chassisSpeeds = new ChassisSpeeds(1, 0, 0);
+        
+        // Maybe -
+        chassisSpeeds = new ChassisSpeeds(SensorConstants.PIDspeed.calculate(0, swerveSubsystem.getYaw()), 0, 0);
 
         // 5. Convert chassis speeds to individual module states
         SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
@@ -36,16 +39,12 @@ public class AutoChargingBalanceCmd extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        // armSubsystem.intakeMotor.set(-0.05);
+        swerveSubsystem.stopModules();
     }
 
     @Override
     public boolean isFinished() {
-        System.out.println(swerveSubsystem.getPitch() + " Pitch Auto");
-        if(swerveSubsystem.getPitch() < -15){
-            return true;
-        } else{
-            return false;
-        }
+        // if(Math.abs(swerveSubsystem.getYaw()) < 0.25)
+        return false;
     }
 }

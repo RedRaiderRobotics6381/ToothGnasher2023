@@ -9,7 +9,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.Primary.SwerveSubsystem;
 
 public class SwerveJoystickCmd extends CommandBase {
 

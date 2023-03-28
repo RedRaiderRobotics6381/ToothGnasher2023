@@ -1,22 +1,22 @@
-package frc.robot.commands.Drive;
+package frc.robot.commands.Drive.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.Primary.SwerveSubsystem;
 
-public class ResetGyroCmd extends CommandBase {
+public class Gyro180Cmd extends CommandBase {
 
     private final SwerveSubsystem swerveSubsystem;
 
-    public ResetGyroCmd(SwerveSubsystem swerveSubsystem) {
+    public Gyro180Cmd(SwerveSubsystem swerveSubsystem) {
         this.swerveSubsystem = swerveSubsystem;
         addRequirements(swerveSubsystem);
     }
 
     @Override
     public void initialize() {}
-
+    
     @Override
     public void execute() {
-        swerveSubsystem.zeroHeading();
+        swerveSubsystem.setHeading(180);
     }
 
     @Override

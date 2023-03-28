@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.Secondary;
 
 // import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;

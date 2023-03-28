@@ -3,7 +3,7 @@ package frc.robot.commands.Arm.Manipulator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.subsystems.RotateSubsystem;
+import frc.robot.subsystems.Secondary.RotateSubsystem;
 
 public class ArmManipulatorDriveCmd extends CommandBase {
 

@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.Primary;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
@@ -15,7 +15,7 @@ import frc.robot.Constants.DriveConstants;
 public class SwerveSubsystem extends SubsystemBase {
 
     // Lists all of the components that make up the front left wheel. The components are all determined in Constants.java
-    private final SwerveModule2 frontLeft = new SwerveModule2(
+    private final SwerveModule frontLeft = new SwerveModule(
             DriveConstants.kFrontLeftDriveMotorPort, // Can ID of the drive motor
             DriveConstants.kFrontLeftTurningMotorPort, // Can ID of the turning motor
             DriveConstants.kFrontLeftDriveEncoderReversed, // Direction of the drive motor
@@ -25,7 +25,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed); // Direction of the encoder
 
     // Lists all of the components that make up the front right wheel. The components are all determined in Constants/java
-            private final SwerveModule2 frontRight = new SwerveModule2(
+            private final SwerveModule frontRight = new SwerveModule(
             DriveConstants.kFrontRightDriveMotorPort, // Can ID of the drive motor
             DriveConstants.kFrontRightTurningMotorPort, // Can ID of the turning motor
             DriveConstants.kFrontRightDriveEncoderReversed, // Direction of the drive motor
@@ -35,7 +35,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kFrontRightDriveAbsoluteEncoderReversed); // Direction of the encoder
 
     // Lists all of the components that make up the back left wheel. The components are all determined in Contants.java
-    private final SwerveModule2 backLeft = new SwerveModule2(
+    private final SwerveModule backLeft = new SwerveModule(
             DriveConstants.kBackLeftDriveMotorPort, // Can ID of the drive motor
             DriveConstants.kBackLeftTurningMotorPort, // Can ID of the turning motor
             DriveConstants.kBackLeftDriveEncoderReversed, // Direction of the drive motor
@@ -45,7 +45,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kBackLeftDriveAbsoluteEncoderReversed); // Direction of the encoder
 
     // Lists all of the components that make up the back right wheel. The components are all determined in the Constants.java        
-    private final SwerveModule2 backRight = new SwerveModule2(
+    private final SwerveModule backRight = new SwerveModule(
             DriveConstants.kBackRightDriveMotorPort, // Can ID of the drive motor
             DriveConstants.kBackRightTurningMotorPort, // Can ID of the turning motor
             DriveConstants.kBackRightDriveEncoderReversed, // Direction of the drive motor
@@ -79,8 +79,16 @@ public class SwerveSubsystem extends SubsystemBase {
         return -Math.IEEEremainder(gyro.getAngle(), 360);
     }
 
+    public void setHeading(double value){
+        gyro.setAngleAdjustment(value);
+    }
+
     public double getPitch(){
         return gyro.getPitch();
+    }
+
+    public double getYaw(){
+        return gyro.getYaw();
     }
 
     public Rotation2d getRotation2d() {

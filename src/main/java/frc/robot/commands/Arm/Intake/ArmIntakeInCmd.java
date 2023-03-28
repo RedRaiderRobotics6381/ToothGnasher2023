@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.Secondary.ArmSubsystem;
 
 public class ArmIntakeInCmd extends CommandBase {
 
@@ -31,7 +31,7 @@ public class ArmIntakeInCmd extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        armSubsystem.intakeMotor.set(0.05);
+        armSubsystem.intakeMotor.set(0.07);
         RobotContainer.secondaryJoystick.setRumble(RumbleType.kRightRumble, 0);
     }
 

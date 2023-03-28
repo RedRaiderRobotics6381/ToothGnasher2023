@@ -74,7 +74,7 @@ public final class Constants {
         public static final boolean kBackRightTurningEncoderReversed = true;
 
         // Determines direction of the swerve drive motors
-        public static final boolean kFrontLeftDriveEncoderReversed = true;
+        public static final boolean kFrontLeftDriveEncoderReversed = false;
         public static final boolean kBackLeftDriveEncoderReversed = true;
         public static final boolean kFrontRightDriveEncoderReversed = false;
         public static final boolean kBackRightDriveEncoderReversed = false;
@@ -194,5 +194,7 @@ public final class Constants {
         public static PIDController PIDspeed = new PIDController(0.20, 0, 0);
         public static PIDController PIDside = new PIDController(0.06, 0, 0);
         public static PIDController PIDturn = new PIDController(0.005, 0, 0);
+
+        public static PIDController PIDcharging = new PIDController(0.2, 0, 0);
     }
 }

@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.Primary.SwerveSubsystem;
+import frc.robot.subsystems.Secondary.ArmSubsystem;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
 public class AutoDriveCmd extends CommandBase {

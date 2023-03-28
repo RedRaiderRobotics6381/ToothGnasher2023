@@ -1,4 +1,4 @@
-package frc.robot.commands.Drive;
+package frc.robot.commands.Drive.Allign;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -6,20 +6,20 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SensorConstants;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.Primary.SwerveSubsystem;
+import frc.robot.subsystems.Secondary.ArmSubsystem;
 
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
-public class DrivePoleAllignCmd extends CommandBase {
+public class DriveAllignBoxCmd extends CommandBase {
 
     private final SwerveSubsystem swerveSubsystem;
     Supplier<Boolean> button;
     static ChassisSpeeds chassisSpeeds;
 
-    public DrivePoleAllignCmd(SwerveSubsystem swerveSubsystem, Supplier<Boolean> button) {
+    public DriveAllignBoxCmd(SwerveSubsystem swerveSubsystem, Supplier<Boolean> button) {
         this.button = button;
         this.swerveSubsystem = swerveSubsystem;
         addRequirements(swerveSubsystem);
@@ -33,7 +33,7 @@ public class DrivePoleAllignCmd extends CommandBase {
     @Override
     public void execute() {
         if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
-            // NetworkTableInstance.get
+            // NetworkTableInstance.get)
             swerveSubsystem.setModuleStates(move());
         }
     }

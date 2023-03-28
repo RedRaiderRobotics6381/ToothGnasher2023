@@ -2,7 +2,7 @@ package frc.robot.commands.Arm.Slider;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.Secondary.ArmSubsystem;
 
 public class ArmSliderBottomCmd extends CommandBase {
 

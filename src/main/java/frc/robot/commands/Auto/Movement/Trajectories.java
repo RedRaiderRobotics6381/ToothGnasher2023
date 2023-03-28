@@ -21,6 +21,7 @@ import frc.robot.Constants.DriveConstants;
 public class Trajectories {
 
         public static Trajectory traj;
+        public static Trajectory traj4;
 
         public static SwerveControllerCommand traj1() {
                 // 1. Define PID Controllers
@@ -93,7 +94,7 @@ public class Trajectories {
                 // 3. Generate trajectory
                 var start = new Pose2d(0, 0,
                                 Rotation2d.fromDegrees(-180));
-                var end = new Pose2d(2.5, 0,
+                var end = new Pose2d(2.25, 0, // 2.25
                                 Rotation2d.fromDegrees(-160));
 
                 var interior = new ArrayList<Translation2d>();
@@ -206,7 +207,7 @@ public class Trajectories {
                                 end,
                                 config);
 
-                traj = trajectory;
+                traj4 = trajectory;
 
                 // 4. Construct command to follow trajectory
                 SwerveControllerCommand swerveControllerCommandB = new SwerveControllerCommand(
@@ -220,6 +221,10 @@ public class Trajectories {
                                 RobotContainer.swerveSubsystem);
 
                 return swerveControllerCommandB;
+        }
+
+        public static Trajectory getTraj4() {
+                return traj4;
         }
 
         public static SwerveControllerCommand traj5() {
