@@ -94,7 +94,7 @@ public class Trajectories {
                 // 3. Generate trajectory
                 var start = new Pose2d(0, 0,
                                 Rotation2d.fromDegrees(-180));
-                var end = new Pose2d(2.25, 0, // 2.25
+                var end = new Pose2d(2.4, 0, // 2.25
                                 Rotation2d.fromDegrees(-160));
 
                 var interior = new ArrayList<Translation2d>();

@@ -1,7 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,8 +14,8 @@ import frc.robot.commands.Arm.Intake.ArmIntakeInCmd;
 import frc.robot.commands.Arm.Intake.ArmIntakeOutCmd;
 import frc.robot.commands.Arm.Manipulator.ArmManipulatorDriveCmd;
 import frc.robot.commands.Arm.Manipulator.ArmManipulatorHumanCmd;
-import frc.robot.commands.Arm.Manipulator.ArmManipulatorIntakeCmd;
 import frc.robot.commands.Arm.Manipulator.ArmManipulatorPlaceCmd;
+import frc.robot.commands.Arm.Manipulator.ArmManipulatorSingleHumanCmd;
 import frc.robot.commands.Arm.Slider.ArmSliderBottomCmd;
 import frc.robot.commands.Arm.Slider.ArmSliderHumanPlayerCmd;
 import frc.robot.commands.Arm.Slider.ArmSliderLowCmd;
@@ -47,11 +46,11 @@ public class RobotContainer {
                 new ArmManipulatorDriveCmd(rotateSubsystem)),
                 Trajectories.traj3(), // move to charge station
                 Trajectories.traj1(), // move then stop
-                new AutoWaitCmd(500), // stop
+                // new AutoWaitCmd(500), // stop
                 Trajectories.traj2(), // go on the drive station
                 Commands.race(new AutoDriveCmd(swerveSubsystem, 0.2), new AutoWaitCmd(10)),
-                // new AutoChargingBalanceCmd(swerveSubsystem),
-                new Gyro180Cmd(swerveSubsystem),
+                new AutoChargingBalanceCmd(swerveSubsystem),
+                // new Gyro180Cmd(swerveSubsystem),
                 new InstantCommand(() -> swerveSubsystem.stopModules()));
 
         private final Command autoSide = new SequentialCommandGroup(
@@ -125,7 +124,8 @@ public class RobotContainer {
                 new JoystickButton(secondaryJoystick, 4).onTrue(Commands.parallel(new ArmSliderTopCmd(armSubsystem),
                                 new ArmManipulatorPlaceCmd(rotateSubsystem)));
 
-                new JoystickButton(secondaryJoystick, 8).onTrue(new ArmManipulatorIntakeCmd(rotateSubsystem));
+                new JoystickButton(secondaryJoystick, 10).onTrue(Commands.parallel(new ArmSliderHumanPlayerCmd(armSubsystem),
+                new ArmManipulatorHumanCmd(rotateSubsystem)));
 
                 new JoystickButton(secondaryJoystick, 5).onTrue(
                                 new ArmIntakeInCmd(armSubsystem, () -> secondaryJoystick.getRawButton(5)));
@@ -133,6 +133,9 @@ public class RobotContainer {
                                 new ArmIntakeOutCmd(armSubsystem, () -> secondaryJoystick.getRawButton(6)));
 
                 new JoystickButton(secondaryJoystick, 7).onTrue(new ArmWristCmd(armSubsystem));
+
+                new JoystickButton(secondaryJoystick, 9).onTrue(Commands.parallel(new ArmSliderBottomCmd(armSubsystem),
+                new ArmManipulatorSingleHumanCmd(rotateSubsystem)));
 
                 // Primary
 
@@ -143,6 +146,8 @@ public class RobotContainer {
                                 .onTrue(new DriveAllignBoxCmd(swerveSubsystem, () -> driverJoytick.getRawButton(2)));
 
                 new JoystickButton(driverJoytick, 4).onTrue(new GyroResetCmd(swerveSubsystem));
+
+                new JoystickButton(driverJoytick, 2).whileTrue(new AutoChargingBalanceCmd(swerveSubsystem));
 
         }
 

@@ -1,18 +1,14 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Primary.SwerveSubsystem;
-import frc.robot.subsystems.Secondary.ArmSubsystem;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
 public class AutoDriveCmd extends CommandBase {
 
     private final SwerveSubsystem swerveSubsystem;
-    private SwerveModuleState[] states;
     double value;
 
     public AutoDriveCmd(SwerveSubsystem swerveSubsystem, double value) {

@@ -4,9 +4,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -14,9 +12,7 @@ import frc.robot.Constants.ArmConstants;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
-import edu.wpi.first.cscore.MjpegServer;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
@@ -48,34 +44,14 @@ public class Robot extends TimedRobot {
         // autonomous chooser on the dashboard.
 
         // CameraServer.startAutomaticCapture();
-        // CvSink cvSink = CameraServer.getVideo();
-        // // Creates UsbCamera and MjpegServer [1] and connects them
-        // CameraServer.startAutomaticCapture();
 
-        // // Creates the CvSink and connects it to the UsbCamera
+        // Creates the CvSink and connects it to the UsbCamera
         // CvSink cvSink = CameraServer.getVideo();
 
-        // // Creates the CvSource and MjpegServer [2] and connects them
+        // Creates the CvSource and MjpegServer [2] and connects them
         // CvSource outputStream = CameraServer.putVideo("Blur", 640, 480);
 
-        // Creates UsbCamera and MjpegServer [1] and connects them
-
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
-
-        // UsbCamera usbCamera = new UsbCamera("USB Camera 0", 0);
-        // MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 0", 1181);
-        // mjpegServer1.setSource(usbCamera);
-
-        // // Creates the CvSink and connects it to the UsbCamera
-        // CvSink cvSink = new CvSink("opencv_USB Camera 0");
-        // cvSink.setSource(usbCamera);
-
-        // // Creates the CvSource and MjpegServer [2] and connects them
-        // CvSource outputStream = new CvSource("Blur", PixelFormat.kMJPEG, 640, 480, 30);
-        // MjpegServer mjpegServer2 = new MjpegServer("serve_Blur", 1182);
-        // mjpegServer2.setSource(outputStream);
-
-        // camera1.setResolution(160, 120);
 
         m_robotContainer = new RobotContainer();
 
@@ -158,9 +134,9 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
 
-        System.out.println("Yaw" + RobotContainer.swerveSubsystem.getYaw());
+        // System.out.println("Yaw" + RobotContainer.swerveSubsystem.getYaw());
 
-        SmartDashboard.putNumber("Yaw", RobotContainer.swerveSubsystem.getYaw());
+        SmartDashboard.putNumber("Pitch", RobotContainer.swerveSubsystem.getPitch());
 
         // Manipulator w/ restrictions
         if (ArmConstants.manipulatorManual == false

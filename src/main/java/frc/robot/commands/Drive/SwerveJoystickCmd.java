@@ -5,8 +5,6 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.Primary.SwerveSubsystem;
@@ -56,11 +54,11 @@ public class SwerveJoystickCmd extends CommandBase {
            
         // 0.5 Spencer buttons
         if(lbumper.get() && rbumper.get()){
-            driveChange = 3;
+            driveChange = 6.5;
             turningChange = 4;
         } else if(lbumper.get() || rbumper.get()){
-            driveChange = 2;
-            turningChange = 1;
+            driveChange = 3;
+            turningChange = 4;
         } else if(slowbutton.get()){
             driveChange = 0.5;
             turningChange = 0.5;

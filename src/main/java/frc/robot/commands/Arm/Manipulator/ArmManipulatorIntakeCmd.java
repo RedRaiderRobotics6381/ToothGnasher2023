@@ -22,12 +22,12 @@ public class ArmManipulatorIntakeCmd extends CommandBase {
 
     @Override
     public void execute() {
-        P = ((Math.abs(rotateSubsystem.armRotateEncoder.getPosition() - ArmConstants.pos4)+30)/300);
-        if(rotateSubsystem.armRotateEncoder.getPosition() > ArmConstants.pos4 + ArmConstants.rotateoffset){
+        P = ((Math.abs(rotateSubsystem.armRotateEncoder.getPosition() - ArmConstants.posIntake)+30)/300);
+        if(rotateSubsystem.armRotateEncoder.getPosition() > ArmConstants.posIntake + ArmConstants.rotateoffset){
             rotateSubsystem.armRotateMotor.set(-ArmConstants.rotateSpeed * P);
             // System.out.println("up");
            }
-           if(rotateSubsystem.armRotateEncoder.getPosition() < ArmConstants.pos4 - ArmConstants.rotateoffset){
+           if(rotateSubsystem.armRotateEncoder.getPosition() < ArmConstants.posIntake - ArmConstants.rotateoffset){
             rotateSubsystem.armRotateMotor.set(ArmConstants.rotateSpeed * P);
             // System.out.println("down");
            }
@@ -35,14 +35,14 @@ public class ArmManipulatorIntakeCmd extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        rotateSubsystem.armRotateMotor.set(ArmConstants.pos4Gravity);
+        rotateSubsystem.armRotateMotor.set(ArmConstants.posIntakeGravity);
 
         Constants.ArmConstants.manipulatorOn = false;
     }
 
     @Override
     public boolean isFinished() {
-        if(rotateSubsystem.armRotateEncoder.getPosition() > ArmConstants.pos4 - ArmConstants.rotateoffset && rotateSubsystem.armRotateEncoder.getPosition() < ArmConstants.pos4 + ArmConstants.rotateoffset){
+        if(rotateSubsystem.armRotateEncoder.getPosition() > ArmConstants.posIntake - ArmConstants.rotateoffset && rotateSubsystem.armRotateEncoder.getPosition() < ArmConstants.posIntake + ArmConstants.rotateoffset){
             return true;
         }else{
             return false;

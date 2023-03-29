@@ -169,18 +169,21 @@ public final class Constants {
 
         // manipulator rotations
         // human player
-        public static final double pos1 = 100;
+        public static final double posDoubleHuman = 100;
         // placing
-        public static final double pos2 = 117;
+        public static final double posPlace = 117;
         // up
-        public static final double pos3 = 150;
+        public static final double posDrive = 150;
         // intake
-        public static final double pos4 = 291;
+        public static final double posIntake = 291;
+        // Single human player station
+        public static final double posSingularHuman = 130;
         
-        public static final double pos1Gravity = 0.03;
-        public static final double pos2Gravity = 0.03;
-        public static final double pos3Gravity = 0.02;
-        public static final double pos4Gravity = -0.04;
+        public static final double posDoubleHumanGravity = 0.03;
+        public static final double posPlaceGravity = 0.03;
+        public static final double posDriveGravity = 0.02;
+        public static final double posIntakeGravity = -0.04;
+        public static final double posSingularHumanGravity = 0.02;
         public static final double restriction1 = 100;
         public static final double restriction2 = 291;
         public static final double rotateSpeed = 1;
@@ -195,6 +198,6 @@ public final class Constants {
         public static PIDController PIDside = new PIDController(0.06, 0, 0);
         public static PIDController PIDturn = new PIDController(0.005, 0, 0);
 
-        public static PIDController PIDcharging = new PIDController(0.2, 0, 0);
+        public static PIDController PIDcharging = new PIDController(0.05, 0, 0);
     }
 }

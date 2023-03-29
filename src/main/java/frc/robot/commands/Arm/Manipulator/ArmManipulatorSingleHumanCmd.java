@@ -4,12 +4,12 @@ import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.Secondary.RotateSubsystem;
 
-public class ArmManipulatorPlaceCmd extends CommandBase {
+public class ArmManipulatorSingleHumanCmd extends CommandBase {
 
     private final RotateSubsystem rotateSubsystem;
     double P;
 
-    public ArmManipulatorPlaceCmd(RotateSubsystem rotateSubsystem) {
+    public ArmManipulatorSingleHumanCmd(RotateSubsystem rotateSubsystem) {
         this.rotateSubsystem = rotateSubsystem;
         addRequirements(rotateSubsystem);
     }
@@ -22,12 +22,12 @@ public class ArmManipulatorPlaceCmd extends CommandBase {
 
     @Override
     public void execute() {
-        P = ((Math.abs(rotateSubsystem.armRotateEncoder.getPosition() - ArmConstants.posPlace)+50)/300);
-        if(rotateSubsystem.armRotateEncoder.getPosition() > ArmConstants.posPlace + ArmConstants.rotateoffset){
+        P = ((Math.abs(rotateSubsystem.armRotateEncoder.getPosition() - ArmConstants.posSingularHuman)+30)/300);
+        if(rotateSubsystem.armRotateEncoder.getPosition() > ArmConstants.posSingularHuman + ArmConstants.rotateoffset){
             rotateSubsystem.armRotateMotor.set(-ArmConstants.rotateSpeed * P);
             // System.out.println("up");
            }
-           if(rotateSubsystem.armRotateEncoder.getPosition() < ArmConstants.posPlace - ArmConstants.rotateoffset){
+           if(rotateSubsystem.armRotateEncoder.getPosition() < ArmConstants.posSingularHuman - ArmConstants.rotateoffset){
             rotateSubsystem.armRotateMotor.set(ArmConstants.rotateSpeed * P);
             // System.out.println("down");
            }
@@ -35,14 +35,14 @@ public class ArmManipulatorPlaceCmd extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        rotateSubsystem.armRotateMotor.set(ArmConstants.posPlaceGravity);
+        rotateSubsystem.armRotateMotor.set(ArmConstants.posSingularHumanGravity);
 
         Constants.ArmConstants.manipulatorOn = false;
     }
 
     @Override
     public boolean isFinished() {
-        if(rotateSubsystem.armRotateEncoder.getPosition() > ArmConstants.posPlace - ArmConstants.rotateoffset && rotateSubsystem.armRotateEncoder.getPosition() < ArmConstants.posPlace + ArmConstants.rotateoffset){
+        if(rotateSubsystem.armRotateEncoder.getPosition() > ArmConstants.posSingularHuman - ArmConstants.rotateoffset && rotateSubsystem.armRotateEncoder.getPosition() < ArmConstants.posSingularHuman + ArmConstants.rotateoffset){
             return true;
         }else{
             return false;
