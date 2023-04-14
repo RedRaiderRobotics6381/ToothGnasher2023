@@ -35,6 +35,8 @@ public class RotateSubsystem extends SubsystemBase {
         // wristRotateMotor =  new CANSparkMax(Constants.ArmConstants.kManipulatorWristMotor, MotorType.kBrushless);
         // intakeMotor =  new CANSparkMax(Constants.ArmConstants.kManipulatorIntakeMotor, MotorType.kBrushless);
         armRotateMotor = new CANSparkMax(Constants.ArmConstants.kArmRotateMotor,MotorType.kBrushless);
+        armRotateMotor.setInverted(false);
+        
 
         // sliderEncoder = leftArmSlider.getEncoder();
 

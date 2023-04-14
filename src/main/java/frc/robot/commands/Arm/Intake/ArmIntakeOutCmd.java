@@ -13,9 +13,8 @@ public class ArmIntakeOutCmd extends CommandBase {
     private final ArmSubsystem armSubsystem;
     Supplier<Boolean> button;
 
-    public ArmIntakeOutCmd(ArmSubsystem armSubsystem, Supplier<Boolean> button) {
+    public ArmIntakeOutCmd(ArmSubsystem armSubsystem) {
         this.armSubsystem = armSubsystem;
-        this.button = button;
         addRequirements(armSubsystem);
     }
 
@@ -36,11 +35,6 @@ public class ArmIntakeOutCmd extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(button.get() == true){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return false;
     }
 }

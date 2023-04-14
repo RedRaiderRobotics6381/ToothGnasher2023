@@ -6,6 +6,13 @@ public class AutoWaitCmd extends CommandBase {
     int goal;
     Boolean finished;
 
+    // This is a timer command for auto. We need to know how long to output a cube / cone, move the motors, et. ceters so we build one timer command we can use for all auto commands.
+
+    /**
+     * Pauses
+     * @param goal *Integer* The milliseconds it pauses
+     * @return *Void* Sets the swerve module states.
+     */
     public AutoWaitCmd(int goal) {
         this.goal = goal;
     }

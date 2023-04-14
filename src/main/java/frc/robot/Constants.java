@@ -110,7 +110,8 @@ public final class Constants {
         public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4;
         public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
                 kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
-        public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
+
+        public static double kTeleDriveMaxAccelerationUnitsPerSecond = 3; // originally 3
         public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
     }
 
@@ -118,7 +119,7 @@ public final class Constants {
         public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4;
         public static final double kMaxAngularSpeedRadiansPerSecond = //
                 DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 3; // maybe change this
         public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4;
         public static final double kPXController = 0;
         public static final double kPYController = 0;
@@ -138,6 +139,10 @@ public final class Constants {
         public static final int kDriverXAxis = 0;
         public static final int kDriverRotAxis = 4;
         public static final int kDriverFieldOrientedButtonIdx = 1;
+
+        public static final int kDriverSlowButton = 1;
+        public static final int kDriverlbumper = 5;
+        public static final int kDriverrbumper = 6;
 
         public static final double kDeadband = 0.05;
     }
@@ -177,14 +182,17 @@ public final class Constants {
         // intake
         public static final double posIntake = 291;
         // Single human player station
-        public static final double posSingularHuman = 130;
+        public static final double posSingularHuman = 125; //Match 24, was at 130
+        //Hybrid Node on front
+        public static final double posHybrid = 70;
         
         public static final double posDoubleHumanGravity = 0.03;
         public static final double posPlaceGravity = 0.03;
-        public static final double posDriveGravity = 0.02;
+        public static final double posDriveGravity = 0.01;
         public static final double posIntakeGravity = -0.04;
         public static final double posSingularHumanGravity = 0.02;
-        public static final double restriction1 = 100;
+        public static final double posHybridGravity = 0.04;
+        public static final double restriction1 = 70;
         public static final double restriction2 = 291;
         public static final double rotateSpeed = 1;
 
@@ -197,7 +205,6 @@ public final class Constants {
         public static PIDController PIDspeed = new PIDController(0.20, 0, 0);
         public static PIDController PIDside = new PIDController(0.06, 0, 0);
         public static PIDController PIDturn = new PIDController(0.005, 0, 0);
-
         public static PIDController PIDcharging = new PIDController(0.05, 0, 0);
     }
 }

@@ -127,6 +127,8 @@ public class SwerveSubsystem extends SubsystemBase {
 
         SmartDashboard.putString("Special Turn Encoder [" + 11 + "] current angle:",""+backRight.getTurningPosition());
 
+        SmartDashboard.putString("Wheel [frontLeft] ", " " + frontLeft.getDriveMotorVelocity());
+
         // SmartDashboard.putString("Gyro Roll:", "" + gyro.getRoll());
         // SmartDashboard.putString("Gyro Pitch:", "" + gyro.getPitch());
         // SmartDashboard.putString("Gyro Yaw:", "" + gyro.getYaw());
@@ -143,6 +145,7 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public void setModuleStates(SwerveModuleState[] desiredStates) {
+        System.out.println(DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
         // SmartDashboard.putNumber("Max Speed: ", DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
 

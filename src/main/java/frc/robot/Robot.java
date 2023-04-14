@@ -3,16 +3,22 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.subsystems.Secondary.RotateSubsystem;
+
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.CvSink;
-import edu.wpi.first.cscore.CvSource;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
@@ -32,6 +38,8 @@ public class Robot extends TimedRobot {
     UsbCamera camera1;
     double targetPos = 150;
 
+    Thread m_visionThread;
+    
     /**
      * This function is run when the robot is first started up and should be used
      * for any
@@ -39,23 +47,49 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        // Instantiate our RobotContainer. This will perform all our button bindings,
-        // and put our
-        // autonomous chooser on the dashboard.
 
-        // CameraServer.startAutomaticCapture();
+        m_visionThread =
+            new Thread(
+                () -> {
+                // Get the UsbCamera from CameraServer
+                UsbCamera camera = CameraServer.startAutomaticCapture();
+                // Set the resolution
+                camera.setResolution(160, 120);
 
-        // Creates the CvSink and connects it to the UsbCamera
-        // CvSink cvSink = CameraServer.getVideo();
+                // Get a CvSink. This will capture Mats from the camera
+                CvSink cvSink = CameraServer.getVideo();
+                // Setup a CvSource. This will send images back to the Dashboard
+                CvSource outputStream = CameraServer.putVideo("Rectangle", 160, 120);
 
-        // Creates the CvSource and MjpegServer [2] and connects them
-        // CvSource outputStream = CameraServer.putVideo("Blur", 640, 480);
+                // Mats are very memory expensive. Lets reuse this Mat.
+                Mat mat = new Mat();
 
+                // This cannot be 'true'. The program will never exit if it is. This
+                // lets the robot stop this thread when restarting robot code or
+                // deploying.
+                while (!Thread.interrupted()) {
+                    // Tell the CvSink to grab a frame from the camera and put it
+                    // in the source mat.  If there is an error notify the output.
+                    if (cvSink.grabFrame(mat) == 0) {
+                    // Send the output the error.
+                    outputStream.notifyError(cvSink.getError());
+                    // skip the rest of the current iteration
+                    continue;
+                    }
+                    // Put a rectangle on the image
+                    Imgproc.rectangle(
+                        mat, new Point(100, 100), new Point(400, 400), new Scalar(255, 255, 255), 5);
+                    // Give the output stream a new image to display
+                    outputStream.putFrame(mat);
+                }
+                });
+        m_visionThread.setDaemon(true);
+        m_visionThread.start();
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
-
         m_robotContainer = new RobotContainer();
-
     }
+      
+
 
     /**
      * This function is called every robot packet, no matter the mode. Use this for
@@ -124,9 +158,12 @@ public class Robot extends TimedRobot {
         // RobotContainer.armSubsystem.wristRotateEncoder.setPosition(0);
         RobotContainer.armSubsystem.sliderEncoder.setPosition(0);
 
+        RobotContainer.swerveSubsystem.setHeading(180);
+
         // RobotContainer.swerveSubsystem.setHeading(180);
 
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+        // System.out.println("LIMELIGHT");
+        // NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 
     }
 
@@ -134,9 +171,12 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
 
+        System.out.println("ArmEncoder: " + RobotContainer.rotateSubsystem.armRotateEncoder.getPosition());
+        // System.out.println("Wrist Encoder: " + RobotContainer.armSubsystem.wristRotateEncoder.getPosition());
+
         // System.out.println("Yaw" + RobotContainer.swerveSubsystem.getYaw());
 
-        SmartDashboard.putNumber("Pitch", RobotContainer.swerveSubsystem.getPitch());
+        // SmartDashboard.putNumber("Pitch", RobotContainer.swerveSubsystem.getPitch());
 
         // Manipulator w/ restrictions
         if (ArmConstants.manipulatorManual == false

@@ -2,21 +2,28 @@ package frc.robot.commands.Drive.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Primary.SwerveSubsystem;
 
-public class Gyro180Cmd extends CommandBase {
+public class DriveGyroResetCmd extends CommandBase {
 
     private final SwerveSubsystem swerveSubsystem;
 
-    public Gyro180Cmd(SwerveSubsystem swerveSubsystem) {
+    // A lot of times, we need to reset the gyro, so we use this file to do so.
+
+    /**
+     * Resets the gyro
+     * @param swerveSubsystem *Subsystem* SwerveSubsystem
+     * @return *Void* resets the heading.
+     */
+    public DriveGyroResetCmd(SwerveSubsystem swerveSubsystem) {
         this.swerveSubsystem = swerveSubsystem;
         addRequirements(swerveSubsystem);
     }
 
     @Override
     public void initialize() {}
-    
+
     @Override
     public void execute() {
-        swerveSubsystem.setHeading(180);
+        swerveSubsystem.zeroHeading();
     }
 
     @Override

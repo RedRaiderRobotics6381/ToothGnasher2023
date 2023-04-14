@@ -8,6 +8,13 @@ public class ArmWristCmd extends CommandBase {
     private final ArmSubsystem armSubsystem;
     boolean clockwise = true;
 
+    // This file rotates the wrist motor. It has to move in two different directions, so that it doesn't break the physical motor.
+
+    /**
+     * Turns the wrist
+     * @param armSubsystem *Subsystem* ArmSubsystem
+     * @return *Void* Sets the wrist motors.
+     */
     public ArmWristCmd(ArmSubsystem armSubsystem) {
         this.armSubsystem = armSubsystem;
         addRequirements(armSubsystem);
@@ -19,6 +26,7 @@ public class ArmWristCmd extends CommandBase {
 
     @Override
     public void execute() {
+        // Sets the motor direction based on whether it needs to go clockwise or counterclockwise
         if(clockwise == true){
             armSubsystem.wristRotateMotor.set(0.9 * ((Math.abs(armSubsystem.wristRotateEncoder.getPosition()-90)+20)/180));
         } else{
@@ -28,6 +36,7 @@ public class ArmWristCmd extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        // This switches it from whether it needs to be clockwise or counterclockwise by the next turn
         armSubsystem.wristRotateMotor.set(0);
         if(clockwise == true){
             clockwise = false;
@@ -38,7 +47,7 @@ public class ArmWristCmd extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        // System.out.println(ArmSubsystem.wristRotateEncoder.getPosition());
+        // Determins if it is finished based on whether it is clockwise or not
         if(clockwise == true){
             if(armSubsystem.wristRotateEncoder.getPosition() > 90){
                 return false;

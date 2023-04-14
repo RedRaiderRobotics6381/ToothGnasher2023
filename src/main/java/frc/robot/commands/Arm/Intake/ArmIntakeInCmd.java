@@ -1,7 +1,5 @@
 package frc.robot.commands.Arm.Intake;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -11,11 +9,9 @@ import frc.robot.subsystems.Secondary.ArmSubsystem;
 public class ArmIntakeInCmd extends CommandBase {
 
     private final ArmSubsystem armSubsystem;
-    Supplier<Boolean> button;
 
-    public ArmIntakeInCmd(ArmSubsystem armSubsystem, Supplier<Boolean> button) {
+    public ArmIntakeInCmd(ArmSubsystem armSubsystem) {
         this.armSubsystem = armSubsystem;
-        this.button = button;
         addRequirements(armSubsystem);
     }
 
@@ -37,11 +33,6 @@ public class ArmIntakeInCmd extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(button.get() == true){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return false;
     }
 }

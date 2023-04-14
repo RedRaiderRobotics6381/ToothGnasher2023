@@ -6,51 +6,51 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SensorConstants;
 import frc.robot.subsystems.Primary.SwerveSubsystem;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
 public class DriveAllignBoxCmd extends CommandBase {
 
     private final SwerveSubsystem swerveSubsystem;
-    Supplier<Boolean> button;
     static ChassisSpeeds chassisSpeeds;
 
-    public DriveAllignBoxCmd(SwerveSubsystem swerveSubsystem, Supplier<Boolean> button) {
-        this.button = button;
+    // We allign with the box using PID.
+
+    /**
+     * Alligns with the box
+     * @param swerveSubsystem *Subsystem* SwerveSubsystem
+     * @return *Void* Sets the module states.
+     */
+    @Deprecated
+    public DriveAllignBoxCmd(SwerveSubsystem swerveSubsystem) {
         this.swerveSubsystem = swerveSubsystem;
         addRequirements(swerveSubsystem);
     }
 
     @Override
-    public void initialize() {
+    public void initialize() { // turns on the limelight
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     }
 
     @Override
-    public void execute() {
+    public void execute() { // if the limeight sees something, move
         if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
-            // NetworkTableInstance.get)
             swerveSubsystem.setModuleStates(move());
         }
     }
 
     @Override
-    public void end(boolean interrupted) {
+    public void end(boolean interrupted) { // turns off the limelight
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
-        // armSubsystem.intakeMotor.set(-0.05);
     }
 
     @Override
     public boolean isFinished() {
-        if(button.get()){
-            return false;
-        } else{
-            return true;
-        }
+        return false;
     }
 
+    // Moves the robot based on the limelight position
     public static SwerveModuleState[] move(){
+        // The first parameter is the number we want to reach, and the second is the value we are currently at. It spits out a number we set the motors to.
         double speed = SensorConstants.PIDspeed.calculate(3.5, getDistance(getVerticle()));
         double side = -SensorConstants.PIDside.calculate(0, getHorizontal());
         double turn = -SensorConstants.PIDturn.calculate(0, getHorizontal());
@@ -69,12 +69,14 @@ public class DriveAllignBoxCmd extends CommandBase {
         return moduleStates;
     }
 
+    // Gets the distace away from the box w/ trig
     public static double getDistance(double verticle) {
         double bottom = Math.tan(verticle * Math.PI / 180);
         double total = 2.83 / bottom; // originaly 3
         return total;
     }
 
+    // Gets the verticle angle from the box w/ limelight
     public static double getVerticle(){
         double verticle1 = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
         double reading = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
@@ -86,10 +88,12 @@ public class DriveAllignBoxCmd extends CommandBase {
         }
     }
 
+    // Gets the horizontal angle w/ limeligt
     public static double getHorizontal(){
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     }
 
+    // Sets the chassis motors to 0
     public static ChassisSpeeds stop() {
         return new ChassisSpeeds(0, 0, 0);
     }
