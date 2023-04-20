@@ -43,7 +43,7 @@ public class RotateSubsystem extends SubsystemBase {
         // armRotateEncoder = armRotateMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
         armRotateEncoder = armRotateMotor.	getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
         armRotateEncoder.setPositionConversionFactor(360);
-        armRotateEncoder.setZeroOffset(190);
+        armRotateEncoder.setZeroOffset(25   );
 
         // grabberEncoder = grabberMotor.getEncoder();
 
